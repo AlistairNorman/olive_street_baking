@@ -4,6 +4,7 @@ ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3"
+gem "solidus", "~> 4.3.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -60,3 +61,35 @@ group :development do
   # gem "spring"
 end
 
+
+gem "solidus_admin", ">= 0.2"
+
+gem "solidus_auth_devise", "~> 2.5"
+gem "responders"
+gem "canonical-rails"
+gem "solidus_support"
+gem "truncate_html"
+gem "view_component", "~> 3.0"
+gem "tailwindcss-rails"
+
+group :test do
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "capybara-screenshot", "~> 1.0"
+  gem "database_cleaner", "~> 2.0"
+end
+
+group :development, :test do
+  gem "rspec-rails"
+  gem "rails-controller-testing", "~> 1.0.5"
+  gem "rspec-activemodel-mocks", "~> 1.1.0"
+  gem "factory_bot", ">= 4.8"
+  gem "factory_bot_rails"
+  gem "ffaker", "~> 2.13"
+  gem "rubocop", "~> 1.0"
+  gem "rubocop-performance", "~> 1.5"
+  gem "rubocop-rails", "~> 2.3"
+  gem "rubocop-rspec", "~> 2.0"
+end
+
+gem "solidus_stripe", "~> 5.a"

@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+
   html,
   body {
     @apply box-border max-w-full antialiased scroll-smooth bg-sand;
     @apply dark:bg-black dark:text-sand;
+  }
+
+  .header-image {
+    margin-top: 150px;
   }
 }
 
@@ -62,7 +67,7 @@
   .checkbox-input {
     @apply flex items-center gap-x-2
   }
-  
+
   input[type=checkbox] {
     @apply text-black rounded dark:checked:invert;
   }
@@ -109,25 +114,25 @@
     @apply flex flex-col gap-y-1;
   }
 
-  .checkout-header__steps > ol {
+  .checkout-header__steps>ol {
     @apply flex;
   }
 
-  .checkout-header__steps > ol > li {
+  .checkout-header__steps>ol>li {
     @apply flex items-center text-body-xs font-sans-md text-gray-500 dark:text-sand last:after:hidden;
   }
 
-  .checkout-header__steps > ol > li::after {
+  .checkout-header__steps>ol>li::after {
     @apply content-[""] inline-flex w-5 h-5 items-center bg-contain bg-no-repeat bg-center contrast-0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M8.11476 8.00005L6.22876 6.11472L7.17143 5.17139L10.0001 8.00005L7.17143 10.8287L6.22876 9.88539L8.11476 8.00005Z' fill='currentColor'/%3E%3C/svg%3E");
   }
 
-  .checkout-header__steps > ol > li:last-child::after {
+  .checkout-header__steps>ol>li:last-child::after {
     content: '';
   }
 
-  .checkout-header__steps > ol > li.current,
-  .checkout-header__steps > ol > li.current-first {
+  .checkout-header__steps>ol>li.current,
+  .checkout-header__steps>ol>li.current-first {
     @apply text-red-500;
   }
 
@@ -153,6 +158,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .overflow-x-scroll::-webkit-scrollbar {
     display: none;
   }
@@ -166,7 +172,7 @@
     scrollbar-width: none;
   }
 
-  .login-or-guest > .grid-container {
+  .login-or-guest>.grid-container {
     @apply grid-cols-none;
   }
 }

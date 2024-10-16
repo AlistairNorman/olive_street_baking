@@ -1,3 +1,6 @@
+<div>
+  <%= image_tag "little_house.jpeg", style: "margin: 0 auto; width: 60%; max-width: 800px;" %>
+</div>
 <%= render 'featured_products', { products: @featured_products } if @featured_products.try(:any?) %>
 <%= render 'collection', { title: "Shop Collection", products: @collection_products } if @collection_products.try(:any?) %>
 <%= render 'collections_with_call_to_action', { products: @cta_collection_products[0..1] } if @cta_collection_products.try(:any?) %>

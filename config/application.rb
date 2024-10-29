@@ -1,17 +1,17 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails"
+require 'rails'
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "active_storage/engine"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_mailbox/engine"
-require "action_text/engine"
-require "action_view/railtie"
-require "action_cable/engine"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'active_storage/engine'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_mailbox/engine'
+require 'action_text/engine'
+require 'action_view/railtie'
+require 'action_cable/engine'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -21,7 +21,7 @@ Bundler.require(*Rails.groups)
 module TinyGoatBaking
   class Application < Rails::Application
     if defined?(FactoryBotRails)
-      initializer after: "factory_bot.set_factory_paths" do
+      initializer after: 'factory_bot.set_factory_paths' do
         require 'spree/testing_support/factory_bot'
 
         # The paths for Solidus' core factories.
@@ -36,7 +36,7 @@ module TinyGoatBaking
 
         # Your application's own factories.
         app_paths = [
-          Rails.root.join('spec/factories'),
+          Rails.root.join('spec/factories')
         ]
 
         FactoryBot.definition_file_paths = solidus_paths + extension_paths + app_paths
@@ -48,7 +48,7 @@ module TinyGoatBaking
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -60,5 +60,6 @@ module TinyGoatBaking
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.assets.css_compressor = nil
   end
 end

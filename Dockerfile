@@ -4,6 +4,8 @@
 ARG RUBY_VERSION=3.2.2
 FROM ruby:$RUBY_VERSION-slim AS base
 
+LABEL fly_launch_runtime="rails"
+
 # Rails app lives here
 WORKDIR /rails
 
@@ -22,9 +24,6 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-
-
-
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
@@ -34,6 +33,9 @@ RUN apt-get update -qq && \
 
 # Build options
 ENV PATH="/usr/local/node/bin:$PATH"
+
+RUN apt-get update
+RUN apt-get install nodejs -y
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -69,7 +71,7 @@ RUN groupadd --system --gid 1000 rails && \
     chown -R 1000:1000 db log storage tmp
 USER 1000:1000
 
-# Entrypoint prepares the database.
+# Entrypoint sets up the container.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime

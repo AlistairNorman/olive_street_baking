@@ -1,13 +1,16 @@
-# fly.toml app configuration file generated for tiny-goat-baking on 2024-10-28T20:25:47-07:00
+# fly.toml app configuration file generated for tiny-goat-baking-divine-sunset-8484 on 2024-10-29T14:47:58-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'tiny-goat-baking'
+app = 'tiny-goat-baking-divine-sunset-8484'
 primary_region = 'sea'
 console_command = '/rails/bin/rails console'
 
 [build]
+
+[deploy]
+  release_command = './bin/rails db:prepare'
 
 [http_service]
   internal_port = 3000
@@ -33,6 +36,10 @@ console_command = '/rails/bin/rails console'
       X-Forwarded-Proto = 'https'
 
 [[vm]]
-  memory = '1gb'
+  memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
+
+[[statics]]
+  guest_path = '/rails/public'
+  url_prefix = '/'

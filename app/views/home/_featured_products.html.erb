@@ -1,15 +1,16 @@
 <section class="wrapper pt-3 pb-14 md:pb-24">
   <div class="grid-container">
-    <div class="col-span-full md:col-span-6 md:max">
-      <%= link_to root_path do %>
-        <%= image_tag "pagetitle.png" %>
-      <% end %>
-      <p>
-        Welcome to Olive Street Bread, where our love for sourdough shines through in every loaf we bake! Each week, we focus on crafting just one unique variety of sourdough, made with care and simple, quality ingredients. Our process is straightforward-slow fermentation for great flavor and a delightful crust that speaks for itself. As a pickup-only bakery, we keep things cozy and personal, inviting you to come by, say hello, and take home a warm loaf straight from our oven. Join us on this delicious journey, and let Olive Street Bread become your go-to spot for that perfect slice!
-    </div>
-    <div class="col-span-full flex flex-col gap-y-6 md:col-span-6">
+    <div class="col-span-full md:col-span-8 md:max">
       <%= render 'products/featured_product_card', { product: products[0], size: 'big' } %>
-      </p>
+    </div>
+    <div class="col-span-full flex flex-col gap-y-6 md:col-span-4">
+      <% products.each_with_index do |product, index| %>
+        <% if index > 0 %>
+          <div class="basis-1/2">
+            <%= render 'products/featured_product_card', { product: product, size: 'small' } %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </section>

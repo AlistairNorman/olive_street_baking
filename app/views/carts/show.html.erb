@@ -18,15 +18,17 @@
         <%= render 'carts/cart_secondary_actions', order_form: order_form %>
       </div>
     <% end %>
-    
+
     <div class="col-span-full flex flex-col justify-between gap-y-8 p-6 bg-gray-50 h-full text-black dark:bg-gray-800 dark:text-sand lg:flex-col lg:col-span-3 2xl:col-start-10">
-      <%= render 'orders/coupon_code' %>
+      <% if Spree::Promotion.active.exists? %>
+        <%= render 'orders/coupon_code' %>
+      <% end %>
+
       <%= form_for @order, url: cart_path, html: {
         id: 'checkout-button-form',
       } do |order_form| %>
         <%= render 'carts/cart_footer', order_form: order_form %>
       <% end %>
     </div>
-
   <% end %>
 </article>

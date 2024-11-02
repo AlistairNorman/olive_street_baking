@@ -10,6 +10,7 @@ Spree.config do |config|
   config.currency = "CAD"
 
   config.stock.estimator_class = 'TinyGoatBaking::Stock::Estimator'
+  config.order_bill_address_used = false
 
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false

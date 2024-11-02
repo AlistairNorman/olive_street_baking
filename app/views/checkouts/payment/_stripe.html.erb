@@ -30,17 +30,7 @@
       layout: "tabs",
       defaultValues: {
         billingDetails: {
-          name: bill_address.name,
-          email: current_order.email,
-          phone: bill_address.phone,
-          address: {
-            line1: bill_address.address1,
-            line2: bill_address.address2,
-            city: bill_address.city,
-            state: bill_address.state.abbr,
-            country: bill_address.country.iso,
-            postal_code: bill_address.zipcode,
-          }
+          email: current_order.email
         }
       },
     },

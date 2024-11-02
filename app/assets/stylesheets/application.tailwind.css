@@ -13,6 +13,26 @@
   .header-image {
     margin-top: 150px;
   }
+
+  .payment-step__selector {
+    display: flex;
+  }
+
+  .payment-step__selector li {
+    width: 100%;
+  }
+
+  .payment-step__selector li:first-child {
+    margin-right: 45px;
+  }
+
+  button.button-primary {
+    background-color: #556b2f;
+  }
+
+  button.button-primary:hover {
+    background-color: #666633;
+  }
 }
 
 @layer components {
@@ -32,7 +52,7 @@
   }
 
   .button-primary {
-    @apply w-fit py-3 px-7 rounded-full text-body-sm font-sans-md tracking-wider leading-none uppercase whitespace-nowrap transition-colors duration-200 bg-red-500 text-white hover:bg-red-700;
+    @apply w-fit py-3 px-7 rounded-full text-body-sm font-sans-md tracking-wider leading-none uppercase whitespace-nowrap transition-colors duration-200 text-white;
   }
 
   .categories-menu ul {

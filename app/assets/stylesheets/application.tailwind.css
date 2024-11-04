@@ -33,6 +33,23 @@
   button.button-primary:hover {
     background-color: #666633;
   }
+
+  .main-section {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .about-us {
+    max-width: 40%;
+  }
+
+  .about-us p {
+    margin-bottom: 20px;
+  }
+
+  .house-image {
+    width: 30%;
+  }
 }
 
 @layer components {

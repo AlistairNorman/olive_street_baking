@@ -1,5 +1,29 @@
-<div>
-  <%= image_tag "little_house.jpeg", style: "margin: 0 auto; width: 60%; max-width: 800px;" %>
+<div class="main-section">
+  <%= image_tag "little_house.jpeg", class: "house-image" %>
+
+  <div class="about-us">
+    <p>
+      Welcome to Olive Street Bread!
+    </p>
+    <p>
+      At Olive Street Bread, we're passionate about bringing the joy of freshly baked sourdough to our community. Our journey began when we transitioned from professional baking to a more personal endeavor-creating delicious bread for friends and family. What started as a way to keep our love for baking alive quickly blossomed into a thriving home bakery.
+    </p>
+    <p>
+      Each week, we craft small batches of artisan sourdough using time-honored techniques and the finest ingredients. Our breads are made with care, allowing the natural flavors to develop and shine through. Whether you're a long-time sourdough lover or just discovering its delights, we're dedicated to delivering loaves that are flavorful, crusty, and full of character.
+    </p>
+    <p>
+      Our weekly pickups are not just about bread; they're about community. We love sharing our creations with you and celebrating the simple pleasure of breaking bread together. Thank you for supporting our passion and choosing Olive Street Bread as your go-to source for artisan sourdough.
+    </p>
+    <p>
+      We can’t wait to share our love of baking with you!
+    </p>
+    <p>
+      [Your Name]
+    </p>
+    <p>
+      Olive Street Bread
+    </p>
+  </div>
 </div>
 <%= render 'featured_products', { products: @featured_products } if @featured_products.try(:any?) %>
 <%= render 'collection', { title: "Shop Collection", products: @collection_products } if @collection_products.try(:any?) %>

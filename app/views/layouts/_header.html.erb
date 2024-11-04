@@ -1,13 +1,9 @@
 <header class="wrapper grid-container w-full pt-2.5 px-5 lg:px-6 2xl:px-0">
   <div class="col-span-full flex items-center justify-center lg:justify-between lg:gap-x-6">
-    <div class="flex items-start gap-x-4 xl:gap-x-8 w-full justify-center lg:justify-space-between">
-      <%= link_to root_path do %>
-        <%= image_tag "pagetitle.png" %>
-      <% end %>
-
+    <div class="flex items-center gap-x-4 xl:gap-x-8 w-full justify-space-between py-10">
       <% navMobileClasses = '
         categories-menu bg-white
-        fixed top-0 left-0 z-40 w-[80%] max-w-[400px] min-w-[270px] h-full
+        fixed top-0 left-0 z-40 h-full
         transition-transform duration-300 ease-in-out -translate-x-full
         flex flex-col
         lg:bg-sand dark:bg-black dark:text-white text-black dark:lg:text-sand
@@ -21,10 +17,20 @@
       %>
 
       <nav class="<%= navMobileClasses + navDesktopClasses %> text-" data-drawer-target="drawer">
-        <div class="absolute top-50 right-50">
-          <%= link_to "Order", product_path(Spree::Product.first), class: "font-serif-md text-h5 lg:text-h6 mt-12 mb-3 lg:mt-3 absolute right-50" %>
+        <div class="">
+          <%= link_to "Order", product_path(Spree::Product.first), class: "font-serif-md text-h5 lg:text-h6 mt-12 mb-3 lg:mt-3" %>
         </div>
       </nav>
+
+      <div class="header-image">
+        <%= link_to root_path do %>
+          <%= image_tag "pagetitle.png" %>
+        <% end %>
+      </div>
+
+      <a class="instagram-link" href="https://www.instagram.com/olive_street_bread/" target="_blank" aria-label="Instagram">
+        <%= image_tag "black-instagram-icon.svg" %>
+      </a>
     </div>
   </div>
 </header>

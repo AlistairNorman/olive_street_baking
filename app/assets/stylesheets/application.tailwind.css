@@ -10,10 +10,6 @@
     @apply dark:bg-black dark:text-sand;
   }
 
-  .header-image {
-    margin-top: 150px;
-  }
-
   .payment-step__selector {
     display: flex;
   }
@@ -49,6 +45,24 @@
 
   .house-image {
     width: 30%;
+    object-fit: contain;
+  }
+
+  .instagram-link {
+    width: 40px;
+  }
+
+  .categories-menu {
+    width: 70px !important;
+  }
+
+  .header-image {
+    width: 60%;
+    max-width: 1500px;
+  }
+
+  .justify-space-between {
+    justify-content: space-between;
   }
 }
 

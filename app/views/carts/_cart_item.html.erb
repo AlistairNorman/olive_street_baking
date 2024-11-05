@@ -33,14 +33,6 @@
         <div class="cart-item__price hidden md:block col-span-2">
           <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
         </div>
-
-        <div class="flex items-center justify-end md:hidden gap-x-2">
-          <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
-        </div>
-      </div>
-
-      <div class="hidden md:flex items-center justify-end gap-x-2">
-        <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
       </div>
     </div>
   </article>

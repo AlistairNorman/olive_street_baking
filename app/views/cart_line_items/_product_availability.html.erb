@@ -8,7 +8,7 @@
   class_names = classes.push(base_class).join(" ")
 %>
 
-<% if product.master.can_supply? %>
+<% if product.master.can_supply?(quantity_in_cart + 1) %>
   <link itemprop="availability" href="http://schema.org/InStock" />
 <% elsif product.variants.empty? %>
   <span

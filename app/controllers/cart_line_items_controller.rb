@@ -14,10 +14,13 @@ class CartLineItemsController < StoreController
 
     variant  = Spree::Variant.find(params[:variant_id])
     quantity = params[:quantity].present? ? params[:quantity].to_i : 1
+    total_quantity = @order.line_items.where(variant: variant).sum(&:quantity) + quantity
 
     # 2,147,483,647 is crazy. See issue https://github.com/spree/spree/issues/2695.
     if !quantity.between?(1, 2_147_483_647)
       @order.errors.add(:base, t('spree.please_enter_reasonable_quantity'))
+    elsif !variant.can_supply?(total_quantity)
+      @order.errors.add(:base, "Insufficient stock")
     else
       begin
         @line_item = @order.contents.add(variant, quantity)
@@ -30,7 +33,7 @@ class CartLineItemsController < StoreController
       format.html do
         if @order.errors.any?
           flash[:error] = @order.errors.full_messages.join(", ")
-          redirect_back_or_default(root_path)
+          redirect_back(fallback_location: product_path(variant.product))
           return
         else
           redirect_to cart_path

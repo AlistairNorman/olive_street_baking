@@ -101,7 +101,7 @@
 
 .product-section header {
   text-align: center;
-  margin: 100px 0 50px;
+  margin: 50px 0 50px;
 }
 
 .product-section .wrapper p {
@@ -116,8 +116,14 @@
   display: flex;
 }
 
-.product-section .wrapper div {
-  width: 90%;
+.product-section .wrapper .product-description {
+  width: 50%;
+  margin-right: 50px;
+}
+
+.product-section .wrapper .home-bread-card {
+  width: 50%;
+  margin-left: 50px;
 }
 
 .home-bread-card .relative {

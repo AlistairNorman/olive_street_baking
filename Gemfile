@@ -53,3 +53,7 @@ end
 gem 'solidus_stripe', '~> 5.a'
 
 gem 'dockerfile-rails', '>= 1.6', group: :development
+
+gem "aws-sdk-s3", "~> 1.169"
+
+gem "dotenv", "~> 3.1"

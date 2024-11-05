@@ -84,9 +84,10 @@
   object-fit: contain;
 }
 
-.instagram-link {
-  width: 40px;
-  margin: 0 33px;
+.header-links a {
+  display: inline-block;
+  width: 35px;
+  margin-left: 10px;
 }
 
 .header-image {

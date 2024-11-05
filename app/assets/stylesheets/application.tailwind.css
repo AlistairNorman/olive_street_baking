@@ -104,8 +104,24 @@
   margin: 100px 0 50px;
 }
 
-.product-section .grid-container {
-  max-width: 500px;
+.product-section .wrapper p {
+  margin-bottom: 20px;
+}
+
+.product-section .wrapper p:first-child {
+  margin-bottom: 0px;
+}
+
+.product-section .wrapper {
+  display: flex;
+}
+
+.product-section .wrapper div {
+  width: 90%;
+}
+
+.home-bread-card .relative {
+  float: right;
 }
 
 @layer components {

@@ -33,7 +33,9 @@
   }
 
   @media only screen and (max-width: 900px) {
-    .main-section {
+
+    .main-section,
+    .product-section {
       flex-direction: column;
     }
 
@@ -46,6 +48,12 @@
       width: 100% !important;
       margin: auto;
       max-width: 500px;
+    }
+
+    .home-bread-card,
+    .product-description {
+      padding: 0 50px 30px;
+      width: 100% !important;
     }
 
     .header-container {
@@ -72,7 +80,7 @@
 }
 
 .about-us {
-  max-width: 40%;
+  max-width: 37%;
 }
 
 .about-us p {
@@ -80,7 +88,7 @@
 }
 
 .house-image {
-  width: 30%;
+  width: 37%;
   object-fit: contain;
 }
 
@@ -100,21 +108,30 @@
   justify-content: space-between;
 }
 
-.product-section header {
+.product-section-header {
   text-align: center;
   margin: 50px 0 50px;
 }
 
-.product-section .wrapper p {
+.product-section p {
   margin-bottom: 20px;
 }
 
-.product-section .wrapper p:first-child {
+.product-section p:first-child {
   margin-bottom: 0px;
 }
 
-.product-section .wrapper {
+.product-section {
   display: flex;
+  justify-content: space-evenly;
+}
+
+.home-bread-card {
+  width: 37%;
+}
+
+.product-description {
+  width: 37%;
 }
 
 .product-section .wrapper .product-description {

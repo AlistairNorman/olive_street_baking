@@ -27,9 +27,11 @@
             "data-presentation": option_value.presentation,
             "data-option-index": index
           ) %>
-          <span class='<%= "#{classes[option_type.presentation.downcase]}" %> <%= "selected-#{option_value.name.downcase}" %>' style='<%= option_type.presentation.downcase == 'color' && "background-color: #{option_value.name.downcase}" %>'>
-            <span class="value"><%= option_value.presentation %></span>
-          </span>
+          <% if option_values(product: product, option_type: option_type).many? %>
+            <span class='<%= "#{classes[option_type.presentation.downcase]}" %> <%= "selected-#{option_value.name.downcase}" %>' style='<%= option_type.presentation.downcase == 'color' && "background-color: #{option_value.name.downcase}" %>'>
+              <span class="value"><%= option_value.presentation %></span>
+            </span>
+          <% end %>
         </label>
       <% end %>
     </div>

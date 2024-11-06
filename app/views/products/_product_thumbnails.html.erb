@@ -11,7 +11,7 @@
           data: { js: 'product-thumbnail', js_id: image.viewable_id }
         ) do %>
           <%= link_to image.url(:product), class: thumbnails_class do %>
-            <%= image_tag(image.url(:small))  %>
+            <%= image_tag(image.url(:small)) %>
           <% end %>
         <% end %>
       <% end %>
@@ -19,14 +19,12 @@
 
     <% if product.has_variants? %>
       <% product.gallery.images.each do |image| %>
-        <% next if image.viewable_id == product.master.id %>
-
         <%= content_tag(
           :li,
           data: { js: 'variant-thumbnail', js_id: image.viewable_id }
         ) do %>
           <%= link_to image.url(:product), class: thumbnails_class do %>
-            <%= image_tag(image.url(:small))  %>
+            <%= image_tag(image.url(:small)) %>
           <% end %>
         <% end %>
       <% end %>

@@ -44,6 +44,12 @@ window.addEventListener('DOMContentLoaded', () => {
       thumbnail.style.display = 'list-item';
     });
 
+    master_variant_selector = "[data-js='variant-thumbnail'][data-js-id='1']";
+    master_variant_thumbnails = document.querySelectorAll(master_variant_selector);
+    master_variant_thumbnails.forEach(thumbnail => {
+      thumbnail.style.display = 'list-item';
+    });
+
     if(variantsThumbnailsToDisplay.length) {
       variantFirstImage = variantsThumbnailsToDisplay[0].querySelector('a').href
       updateProductImage(variantFirstImage);

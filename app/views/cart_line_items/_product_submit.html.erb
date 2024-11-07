@@ -1,12 +1,10 @@
-<% quantity_in_cart = current_order&.line_items&.where(variant: product.variants_including_master)&.sum(&:quantity) || 0 %>
-
 <div class="product-submit">
-  <%= render 'cart_line_items/product_availability', product: product, quantity_in_cart: quantity_in_cart %>
+  <%= render 'cart_line_items/product_availability', product: product %>
 
-  <% if product.master.can_supply?(quantity_in_cart + 1) %>
+  <% if product.variants.any? ? product.variants.in_stock.any? : product.master.can_supply? %>
     <div class="flex items-center justify-start gap-x-7">
       <div class="select-input">
-        <%= select_tag("quantity", options_for_select((1..(product.total_on_hand - quantity_in_cart)).to_a, 1), class: 'min-w-[100px]', :onchange => "addToCartButtonPriceChangeHandler('#{product.price}')") %>
+        <%= select_tag("quantity", options_for_select((1..product.total_on_hand).to_a, 1), class: 'min-w-[100px]', :onchange => "addToCartButtonPriceChangeHandler('#{product.price}')") %>
       </div>
       <% cta_label = content_tag(:span, "#{t('spree.add_to_cart')} — ") + content_tag(:span, display_price(product), id: 'cta_price') %>
       <%= render partial: "shared/call_to_action", :locals => { :label => cta_label, :id => 'add-to-cart-button', :url => nil } %>

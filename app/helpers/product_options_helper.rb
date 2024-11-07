@@ -15,7 +15,7 @@ module ProductOptionsHelper
 
   # move to model
   def option_values(product:, option_type:)
-    product.variants.map do |variant|
+    product.variants.in_stock.map do |variant|
       variant.option_values.find { |option_value| option_value.option_type_id == option_type.id }
     end.compact.uniq
   end

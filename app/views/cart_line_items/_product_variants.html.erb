@@ -1,5 +1,5 @@
 <%
-  variants = product.variants_and_option_values_for(current_pricing_options)
+  variants = product.variants_and_option_values_for(current_pricing_options).select(&:in_stock?)
 %>
 
 <% if variants.any? %>

@@ -26,6 +26,10 @@
     margin-right: 45px;
   }
 
+  body {
+    background-color: white !important;
+  }
+
   .bg-red-500,
   button.button-primary {
     background-color: #556b2f !important;

@@ -57,3 +57,5 @@ gem 'dockerfile-rails', '>= 1.6', group: :development
 gem "aws-sdk-s3", "~> 1.169"
 
 gem "dotenv", "~> 3.1"
+
+gem "letter_opener", "~> 1.10"

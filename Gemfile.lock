@@ -231,6 +231,8 @@ GEM
       terrapin (>= 0.6.0, < 2.0)
     launchy (2.5.2)
       addressable (~> 2.8)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
     logger (1.6.1)
     loofah (2.23.1)
       crass (~> 1.0.2)
@@ -518,6 +520,7 @@ DEPENDENCIES
   ffaker (~> 2.13)
   importmap-rails
   jbuilder
+  letter_opener (~> 1.10)
   pg
   puma (>= 5.0)
   rails (~> 7.1.3)

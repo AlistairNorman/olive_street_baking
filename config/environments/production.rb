@@ -71,14 +71,15 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
+    address: 'smtp-relay.sendinblue.com',
+    port: '587',
+    authentication: :plain,
     user_name: Rails.application.credentials.smtp_username,
     password: Rails.application.credentials.smtp_password,
-    domain: "olivestreetbread.ca",
-    address: 'email-smtp.us-east-1.amazonaws.com',
-    port: 587,
-    authentication: :plain,
-    enable_starttls_auto: true,
+    enable_starttls_auto: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

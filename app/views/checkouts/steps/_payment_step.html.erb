@@ -12,7 +12,7 @@
     <% if @order.covered_by_store_credit? %>
       <p>Your order is fully covered by store credits, no additional payment method is required.</p>
     <% else %>
-      <ul class="payment-step__selector my-6">
+      <ul class="payment-step__selector my-6 lg:flex-row flex-col">
         <% @wallet_payment_sources&.each do |wallet_payment_source| %>
           <% payment_method = wallet_payment_source.payment_source.payment_method %>
           <% default = wallet_payment_source == @default_wallet_payment_source %>

@@ -59,3 +59,7 @@ gem "aws-sdk-s3", "~> 1.169"
 gem "dotenv", "~> 3.1"
 
 gem "letter_opener", "~> 1.10"
+
+gem "sentry-ruby", "~> 5.22"
+
+gem "sentry-rails", "~> 5.22"

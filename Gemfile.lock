@@ -380,6 +380,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.22.4)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.22.4)
+    sentry-ruby (5.22.4)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     solidus (4.3.2)
       solidus_api (= 4.3.2)
       solidus_backend (= 4.3.2)
@@ -530,6 +536,8 @@ DEPENDENCIES
   rspec-activemodel-mocks (~> 1.1.0)
   rspec-rails
   selenium-webdriver
+  sentry-rails (~> 5.22)
+  sentry-ruby (~> 5.22)
   solidus (~> 4.3.0)
   solidus_admin (>= 0.2)
   solidus_auth_devise (~> 2.5)

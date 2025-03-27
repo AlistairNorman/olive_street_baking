@@ -82,6 +82,37 @@
   }
 }
 
+.payment-step__selector .active-payment {
+  width: 100%
+}
+
+.payment-step__selector li fieldset {
+  opacity: 0.5;
+  max-height: 100px;
+  transition: opacity 0.3s, max-height 0.3s;
+  overflow: hidden;
+}
+
+.payment-step__selector .active-payment fieldset {
+  opacity: 1;
+  max-height: 100%;
+}
+
+.payment-step__selector li {
+  width: 40%;
+  transition: width 0.3s;
+}
+
+@media only screen and (max-width: 900px) {
+  .payment-step__selector li {
+    width: 100%;
+  }
+
+  .payment-step__selector li fieldset {
+    max-height: 160px;
+  }
+}
+
 .main-section {
   display: flex;
   justify-content: space-evenly;

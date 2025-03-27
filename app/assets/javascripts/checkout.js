@@ -31,4 +31,8 @@ window.addEventListener('DOMContentLoaded', () => {
       };
     };
   };
+
+  document.querySelector(".stripe").addEventListener('click', () => {
+    document.querySelector(".stripe input").checked = true
+  })
 });

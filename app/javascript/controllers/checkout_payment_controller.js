@@ -18,9 +18,15 @@ export default class extends Controller {
       (radio) => {
         const fieldset = this.element.querySelector(`fieldset[name="${radio.dataset.fieldsetName}"]`)
 
+
         if (radio === this.selectedRadio) {
+          fieldset.parentElement.classList.add("active-payment")
           fieldset.disabled = false
         } else {
+          if (fieldset.parentElement.classList.contains("active-payment")) {
+            fieldset.parentElement.classList.remove("active-payment")
+          }
+
           radio.checked = false
           fieldset.disabled = true
         }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_21_223960) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -248,6 +248,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.integer "stock_location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
   end
 
   create_table "spree_inventory_units", force: :cascade do |t|
@@ -288,6 +290,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.decimal "additional_tax_total", precision: 10, scale: 2, default: "0.0"
     t.decimal "promo_total", precision: 10, scale: 2, default: "0.0"
     t.decimal "included_tax_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["order_id"], name: "index_spree_line_items_on_order_id"
     t.index ["variant_id"], name: "index_spree_line_items_on_variant_id"
   end
@@ -378,6 +382,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.integer "store_id"
     t.string "approver_name"
     t.boolean "frontend_viewable", default: true, null: false
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["approver_id"], name: "index_spree_orders_on_approver_id"
     t.index ["bill_address_id"], name: "index_spree_orders_on_bill_address_id"
     t.index ["completed_at"], name: "index_spree_orders_on_completed_at"
@@ -439,6 +445,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.string "number"
     t.string "cvv_response_code"
     t.string "cvv_response_message"
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["number"], name: "index_spree_payments_on_number", unique: true
     t.index ["order_id"], name: "index_spree_payments_on_order_id"
     t.index ["payment_method_id"], name: "index_spree_payments_on_payment_method_id"
@@ -521,9 +529,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.boolean "promotionable", default: true
     t.string "meta_title"
     t.datetime "discontinue_on", precision: nil
+    t.integer "primary_taxon_id"
     t.index ["available_on"], name: "index_spree_products_on_available_on"
     t.index ["deleted_at"], name: "index_spree_products_on_deleted_at"
     t.index ["name"], name: "index_spree_products_on_name"
+    t.index ["primary_taxon_id"], name: "index_spree_products_on_primary_taxon_id"
     t.index ["slug"], name: "index_spree_products_on_slug", unique: true
   end
 
@@ -686,6 +696,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.datetime "updated_at"
     t.integer "refund_reason_id"
     t.integer "reimbursement_id"
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["payment_id"], name: "index_spree_refunds_on_payment_id"
     t.index ["refund_reason_id"], name: "index_refunds_on_refund_reason_id"
     t.index ["reimbursement_id"], name: "index_spree_refunds_on_reimbursement_id"
@@ -731,6 +743,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.datetime "updated_at"
     t.integer "stock_location_id"
     t.integer "return_reason_id"
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["return_reason_id"], name: "index_return_authorizations_on_return_authorization_reason_id"
   end
 
@@ -806,6 +820,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.decimal "additional_tax_total", precision: 10, scale: 2, default: "0.0"
     t.decimal "promo_total", precision: 10, scale: 2, default: "0.0"
     t.decimal "included_tax_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["number"], name: "index_shipments_on_number"
     t.index ["order_id"], name: "index_spree_shipments_on_order_id"
     t.index ["stock_location_id"], name: "index_spree_shipments_on_stock_location_id"
@@ -971,6 +987,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.datetime "updated_at"
     t.decimal "amount_remaining", precision: 8, scale: 2
     t.integer "store_credit_reason_id"
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["deleted_at"], name: "index_spree_store_credit_events_on_deleted_at"
     t.index ["store_credit_id"], name: "index_spree_store_credit_events_on_store_credit_id"
   end
@@ -1125,7 +1143,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.integer "user_id", null: false
     t.integer "address_id", null: false
     t.boolean "default", default: false
-    t.boolean "archived", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "default_billing", default: false
@@ -1173,6 +1190,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.datetime "confirmed_at", precision: nil
     t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
+    t.jsonb "customer_metadata", default: {}
+    t.jsonb "admin_metadata", default: {}
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
     t.index ["reset_password_token"], name: "index_spree_users_on_reset_password_token_solidus_auth_devise", unique: true
@@ -1223,6 +1242,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
     t.datetime "updated_at"
     t.datetime "created_at"
     t.integer "shipping_category_id"
+    t.string "gtin"
+    t.string "condition"
     t.index ["position"], name: "index_spree_variants_on_position"
     t.index ["product_id"], name: "index_spree_variants_on_product_id"
     t.index ["shipping_category_id"], name: "index_spree_variants_on_shipping_category_id"
@@ -1268,6 +1289,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_223737) do
   add_foreign_key "solidus_stripe_slug_entries", "spree_payment_methods", column: "payment_method_id"
   add_foreign_key "spree_orders_promotions", "spree_orders", column: "order_id", on_delete: :cascade
   add_foreign_key "spree_orders_promotions", "spree_promotions", column: "promotion_id", on_delete: :cascade
+  add_foreign_key "spree_products", "spree_taxons", column: "primary_taxon_id"
   add_foreign_key "spree_promotion_code_batches", "spree_promotions", column: "promotion_id"
   add_foreign_key "spree_promotion_codes", "spree_promotion_code_batches", column: "promotion_code_batch_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"

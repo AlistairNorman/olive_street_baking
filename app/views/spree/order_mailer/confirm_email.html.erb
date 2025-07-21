@@ -76,6 +76,13 @@
             <%= @order.display_total %>
           </td>
         </tr>
+        <tr>
+          <td></td>
+          <td>Payment Method</td>
+          <td>
+            <%= @order.payments.valid.last.payment_method.name %>
+          </td>
+        </tr>
       </table>
       <p>
         We hope you enjoy your bread!

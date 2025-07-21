@@ -54,6 +54,7 @@ end
 
 Spree::Backend::Config.configure do |config|
   config.locale = 'en'
+  config.load_defaults('4.3')
 
   # Uncomment and change the following configuration if you want to add
   # a new menu item:

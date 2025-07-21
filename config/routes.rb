@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   mount SolidusStripe::Engine, at: '/solidus_stripe'
   scope(path: '/') { draw :storefront }
-  mount SolidusAdmin::Engine, at: '/admin', constraints: ->(req) {
-    req.cookies['solidus_admin'] != 'false' &&
-    req.params['solidus_admin'] != 'false'
-  }
   # This line mounts Solidus's routes at the root of your application.
   #
   # Unless you manually picked only a subset of Solidus components, this will mount routes for:

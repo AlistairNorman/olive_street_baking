@@ -24,8 +24,6 @@ group :development do
   gem 'web-console'
 end
 
-gem 'solidus_admin', '>= 0.2'
-
 gem 'canonical-rails'
 gem 'responders'
 gem 'solidus_auth_devise', '~> 2.5'

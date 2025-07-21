@@ -65,6 +65,7 @@
         <% end %>
         <th><%= sort_link @search, :email %></th>
         <th class="align-right"><%= sort_link @search, :total %></th>
+        <th class="align-right">Payment Method</th>
         <th data-hook="admin_orders_index_header_actions" class="actions"></th>
       </tr>
     </thead>
@@ -103,6 +104,7 @@
           <%= link_to_with_icon('email', t('spree.actions.send_email'), "mailto:#{order.email}", no_text: true) %>
         </td>
         <td class="align-right"><%= order.display_total.to_html %></td>
+        <td class="align-right"><%= order.payments.valid.first.payment_method.name %></td>
         <td class='actions align-center' data-hook="admin_orders_index_row_actions">
           <%= link_to_edit_url edit_admin_order_path(order), title: "admin_edit_#{dom_id(order)}", no_text: true %>
         </td>

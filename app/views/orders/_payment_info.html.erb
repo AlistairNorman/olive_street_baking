@@ -14,11 +14,7 @@
   <% order.payments.valid.each do |payment| %>
     <ul class="payment-info__info flex flex-col gap-y-2">
       <li>
-        <%= render partial_name_with_fallback(
-          'orders/payment_info',
-          payment.payment_method.partial_name,
-          'default'
-        ), payment: payment %>
+        <%= payment.payment_method.name %>
       </li>
       <li>
         <strong><%= payment.display_amount %></strong>

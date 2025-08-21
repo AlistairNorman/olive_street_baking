@@ -14,7 +14,7 @@
   <% order.payments.valid.each do |payment| %>
     <ul class="payment-info__info flex flex-col gap-y-2">
       <li>
-        <%= payment.payment_method.name %>
+        <%= payment&.payment_method&.name %>
       </li>
       <li>
         <strong><%= payment.display_amount %></strong>

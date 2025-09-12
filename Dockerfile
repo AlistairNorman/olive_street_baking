@@ -29,7 +29,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential libpq-dev libvips
+    apt-get install --no-install-recommends -y build-essential libpq-dev libvips libyaml-dev
 
 # Build options
 ENV PATH="/usr/local/node/bin:$PATH"

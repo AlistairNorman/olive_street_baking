@@ -169,8 +169,7 @@ GEM
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
     ffaker (2.23.0)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0)
     flickwerk (0.3.5)
       railties (>= 7.0)
     font-awesome-rails (4.7.0.8)
@@ -261,6 +260,8 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.18.9-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.18.9-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.18.9-x86_64-linux-gnu)
@@ -474,6 +475,7 @@ GEM
     tailwindcss-rails (3.0.0)
       railties (>= 7.0.0)
       tailwindcss-ruby
+    tailwindcss-ruby (3.4.14-arm64-darwin)
     tailwindcss-ruby (3.4.14-x86_64-darwin)
     tailwindcss-ruby (3.4.14-x86_64-linux)
     terrapin (1.0.1)
@@ -509,6 +511,7 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-darwin-21
   x86_64-linux
 
@@ -553,7 +556,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.4.5p51
 
 BUNDLED WITH
    2.4.10

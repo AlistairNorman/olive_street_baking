@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 # This migration comes from spree (originally 20190106184413)
-require 'solidus/migrations/promotions_with_code_handlers'
+# This file doesn't seem to exist and isn't relevant to this store
+if File.exist?('solidus/migrations/promotions_with_code_handlers')
+  require 'solidus/migrations/promotions_with_code_handlers'
+end
 
 class RemoveCodeFromSpreePromotions < ActiveRecord::Migration[5.1]
   class Promotion < ActiveRecord::Base

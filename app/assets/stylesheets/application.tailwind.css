@@ -52,7 +52,7 @@
       margin: 50px 50px 0;
     }
 
-    .main-section-image {
+    .house-image {
       display: none;
     }
 
@@ -125,13 +125,13 @@
 }
 
 .about-us {
-  max-width: 40%;
+  max-width: 37%;
 }
 
-.main-section-image {
-  width: 35%;
-  object-fit: contain;
+.house-image {
+  width: 37%;
   max-height: 450px;
+  object-fit: contain;
 }
 
 .about-us p {

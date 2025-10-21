@@ -1,0 +1,28 @@
+
+<h1>Cookies</h1>
+
+<%= link_to 'New Cookie', new_admin_cookie_path, class: 'btn btn-primary mb-4' %>
+
+<table class="table-auto w-full border-collapse mb-8">
+	<thead>
+		<tr>
+			<th class="border px-4 py-2">ID</th>
+			<th class="border px-4 py-2">Name</th>
+			<th class="border px-4 py-2">Created At</th>
+			<th class="border px-4 py-2">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @cookies.each do |cookie| %>
+			<tr>
+				<td class="border px-4 py-2"><%= cookie.id %></td>
+				<td class="border px-4 py-2"><%= cookie.name %></td>
+				<td class="border px-4 py-2"><%= cookie.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+				<td class="border px-4 py-2">
+					<%= link_to 'Edit', edit_admin_cookie_path(cookie), class: 'btn btn-sm btn-secondary' %>
+					<%= link_to 'Delete', admin_cookie_path(cookie), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger ml-2' %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

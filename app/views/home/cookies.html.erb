@@ -5,7 +5,18 @@
 </header>
 
 <section class="how-it-works-section">
-  <p>
-    Coming soon!
-  </p>
+  <% if Cookie.count == 0 %>
+    <p>
+      Coming soon!
+    </p>
+  <% else %>
+    <ul class="space-y-6">
+      <% Cookie.all.each do |cookie| %>
+        <li>
+          <h2 class="font-semibold text-lg"><%= cookie.name %></h2>
+          <p class="italic text-sm text-gray-600">Ingredients: <%= cookie.ingredients %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </section>

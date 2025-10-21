@@ -1,0 +1,17 @@
+<h1>New Cookie</h1>
+
+<%= form_for(@object, url: admin_cookies_path) do |form| %>
+	<div class="mb-4">
+		<%= form.label :name, class: 'block font-medium mb-1' %>
+		<%= form.text_field :name, class: 'form-input w-full' %>
+	</div>
+
+	<div class="mb-4">
+		<%= form.label :ingredients, class: 'block font-medium mb-1' %>
+		<%= form.text_field :ingredients, class: 'form-input w-full' %>
+	</div>
+
+	<div>
+		<%= form.submit 'Create Cookie', class: 'btn btn-primary' %>
+	</div>
+<% end %>

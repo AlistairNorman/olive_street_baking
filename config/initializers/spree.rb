@@ -56,17 +56,13 @@ Spree::Backend::Config.configure do |config|
   config.locale = 'en'
   config.load_defaults('4.3')
 
-  # Uncomment and change the following configuration if you want to add
-  # a new menu item:
-  #
-  # config.menu_items << config.class::MenuItem.new(
-  #   label: :my_reports,
-  #   icon: 'file-text-o', # see https://fontawesome.com/v4/icons/
-  #   url: :my_admin_reports_path,
-  #   condition: -> { can?(:admin, MyReports) },
-  #   partial: 'spree/admin/shared/my_reports_sub_menu',
-  #   match_path: '/reports',
-  # )
+  config.menu_items << config.class::MenuItem.new(
+    label: :cookies,
+    icon: 'copyright', # see https://fontawesome.com/v4/icons/
+    url: "cookies",
+    condition: -> { can?(:admin, Cookie) },
+    match_path: '/cookies',
+  )
 
   # Custom frontend product path
   #

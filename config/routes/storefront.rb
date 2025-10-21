@@ -15,6 +15,10 @@ devise_for(:user, {
 
 resources :users, only: [:edit, :update]
 
+namespace :admin do
+  resources :cookies
+end
+
 devise_scope :spree_user do
   get '/login', to: 'user_sessions#new', as: :login
   post '/login', to: 'user_sessions#create', as: :create_new_session

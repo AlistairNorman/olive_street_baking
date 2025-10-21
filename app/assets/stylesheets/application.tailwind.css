@@ -52,10 +52,8 @@
       margin: 50px 50px 0;
     }
 
-    .house-image {
-      width: 100% !important;
-      margin: auto;
-      max-width: 500px;
+    .main-section-image {
+      display: none;
     }
 
     .home-bread-card,
@@ -119,16 +117,17 @@
 }
 
 .about-us {
-  max-width: 37%;
+  max-width: 40%;
+}
+
+.main-section-image {
+  width: 35%;
+  object-fit: contain;
+  max-height: 450px;
 }
 
 .about-us p {
   margin-bottom: 20px;
-}
-
-.house-image {
-  width: 37%;
-  object-fit: contain;
 }
 
 .header-links {
@@ -349,5 +348,17 @@
 
   .login-or-guest>.grid-container {
     @apply grid-cols-none;
+  }
+
+  .image-banner {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 25px;
+
+    img {
+      width: 30%;
+      object-fit: cover;
+    }
   }
 }

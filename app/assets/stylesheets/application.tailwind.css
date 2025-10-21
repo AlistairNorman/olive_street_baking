@@ -370,3 +370,22 @@
     }
   }
 }
+
+.how-it-works-section {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+
+  h2 {
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+}
+
+.how-it-works-product-link {
+  text-decoration: underline;
+}

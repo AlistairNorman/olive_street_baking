@@ -16,4 +16,7 @@ class HomeController < StoreController
     @cta_collection_products = homepage_groups[2]
     @new_arrivals = homepage_groups[3]
   end
+
+  def about
+  end
 end

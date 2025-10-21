@@ -41,6 +41,14 @@
   }
 
   @media only screen and (max-width: 900px) {
+    div.header-links {
+      flex-flow: row;
+
+      a {
+        text-align: center;
+        margin: 0 10px;
+      }
+    }
 
     .main-section,
     .product-section {

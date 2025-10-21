@@ -116,6 +116,14 @@
   justify-content: space-evenly;
 }
 
+.main-section-border {
+  border-bottom: 1px solid black;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  width: 45%;
+  margin: 0 auto;
+}
+
 .about-us {
   max-width: 40%;
 }

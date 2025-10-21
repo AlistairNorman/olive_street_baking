@@ -35,7 +35,6 @@ gem 'view_component', '~> 3.0'
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot', '~> 1.0'
-  gem 'database_cleaner', '~> 2.0'
   gem 'selenium-webdriver'
 end
 

@@ -131,15 +131,18 @@
   object-fit: contain;
 }
 
+.header-links {
+  display: flex;
+  flex-flow: column;
+}
+
 .header-links a {
-  display: inline-block;
-  width: 35px;
-  margin-left: 10px;
+  text-align: right;
 }
 
 .header-image {
   width: 60%;
-  max-width: 1500px;
+  max-width: 500px;
   min-width: 350px;
 }
 

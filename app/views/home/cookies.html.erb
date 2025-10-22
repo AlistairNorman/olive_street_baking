@@ -5,18 +5,31 @@
 </header>
 
 <section class="how-it-works-section">
-  <% if Cookie.count == 0 %>
-    <p>
-      Coming soon!
-    </p>
-  <% else %>
-    <ul class="space-y-6">
-      <% Cookie.all.each do |cookie| %>
-        <li>
-          <h2 class="font-semibold text-lg"><%= cookie.name %></h2>
-          <p class="italic text-sm text-gray-600">Ingredients: <%= cookie.ingredients %></p>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
+    <% if Time.current > "Oct 28th, 2025".to_date %>
+      <h2 class="font-semibold text-xl mb-4">
+        Cookies Are Here!
+      </h2>
+
+      <p class="mb-4">
+        Our cookie menu rotates regularly, so there's always something new to try. Grab some when you pick up your bread, or check our Instagram to see when we'll have fresh batches available throughout the week!
+      </p>
+    <% else %>
+      <h2 class="font-semibold text-xl mb-4">
+        Cookies Coming Soon!
+      </h2>
+
+      <p class="mb-4">
+        Starting October 28th, 2025, we'll have a rotating menu of fresh-baked cookies! They'll be available when you pick up your bread, plus at various times throughout the week. Follow us on Instagram for updates on flavours and availability!
+      </p>
+    <% end %>
+  </p>
+
+  <ul class="space-y-6">
+    <% Cookie.all.each do |cookie| %>
+      <li>
+        <h2 class="font-semibold text-lg"><%= cookie.name %></h2>
+        <p class="italic text-sm text-gray-600">Ingredients: <%= cookie.ingredients %></p>
+      </li>
+    <% end %>
+  </ul>
 </section>

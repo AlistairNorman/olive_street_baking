@@ -125,11 +125,19 @@
 }
 
 .main-section-border {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid #000;
   padding-bottom: 25px;
   margin-bottom: 25px;
   width: 45%;
   margin: 0 auto;
+  opacity: 30%;
+}
+
+.cookie-section-border {
+  border-bottom: 2px solid #000;
+  margin: 25px auto 21px;
+  opacity: 30%;
+  width: 80%;
 }
 
 .about-us {

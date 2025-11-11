@@ -40,3 +40,4 @@ app/assets/builds/solidus_admin/
 /config/credentials/development.key
 
 /config/credentials/production.key
+/spec/examples.txt

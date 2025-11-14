@@ -8,7 +8,11 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
       put path,
         params: {
           stock_item: {
-            count_on_hand: 4
+            count_on_hand: 4,
+            id: stock_item.id,
+            stock_location_id: stock_item.stock_location_id,
+            variant_id: variant.id,
+            deleted_at: nil
           }
         }
     }

@@ -2,7 +2,7 @@ module TinyGoatBaking
   module Api
     module StockItemsControllerDecorator
       def self.prepended(base)
-        base.before_action :make_an_order_for_allie, only: [:update]
+        base.after_action :make_an_order_for_allie, only: [:update]
       end
 
       private

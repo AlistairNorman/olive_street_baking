@@ -21,7 +21,7 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
     let!(:variant) { create(:variant) }
     let!(:stock_location) { variant.stock_locations.first }
     let(:stock_item) { variant.stock_items.first }
-    let(:allie) { create :user, email: ENV['ALLIE_EMAIL'] }
+    let(:allie) { create :user, email: "allie@example.com" }
     let(:current_api_user) { create :admin_user }
 
     before do
@@ -30,7 +30,7 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
         line_items_attributes: [{ variant: create(:variant), quantity: 1 }],
         user: allie
 
-      allow(Spree::User).to receive(:find_by).with(email: ENV['ALLIE_EMAIL']) { allie }
+      allow(Spree::User).to receive(:find_by).with(email: "allie@example.com") { allie }
       allow(Spree.user_class)
         .to receive(:find_by)
         .with(hash_including(:spree_api_key)) { current_api_user }
@@ -62,6 +62,22 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
           variant: variant,
           quantity: 1
         )
+      end
+
+      context "when Allie has store credit" do
+        before do
+          create :store_credit, amount: 20, user: allie, currency: "CAD"
+          create :store_credit_payment_method, auto_capture: true
+        end
+
+        it "creates a new order for her and applies store credit" do
+          expect { subject }
+            .to change { allie.reload.store_credits.sole.amount_used }
+            .from(0)
+            .to(19.99)
+
+          expect(Spree::Order.complete.last.user).to eq(allie)
+        end
       end
     end
   end

@@ -23,14 +23,26 @@ module TinyGoatBaking
           store: ::Spree::Store.default,
           line_items: [::Spree::LineItem.new(variant: stock_item.variant, quantity: 1)]
         )
-        payment_method = ::Spree::PaymentMethod
-          .active.find_by(type: "Spree::PaymentMethod::Check")
-        order.payments.create(
-          amount: 9,
-          payment_method: payment_method
-        )
-        order.recalculate
+        store_credit = allie.store_credits.find { |credit|
+          credit.amount_remaining >= stock_item.variant.display_price.to_d
+        }
+        if store_credit
+          payment_method = ::Spree::PaymentMethod.active.find_by(type: "Spree::PaymentMethod::StoreCredit")
+          payment = order.payments.create(
+            amount: stock_item.variant.display_price.to_d,
+            payment_method: payment_method,
+            source: store_credit
+          )
+          payment.process!
+        else
+          payment_method = ::Spree::PaymentMethod.active.find_by(type: "Spree::PaymentMethod::Check")
+          order.payments.create(
+            amount: stock_item.variant.display_price.to_d,
+            payment_method: payment_method
+          )
+        end
 
+        order.recalculate
 
         while !order.can_complete?
           order.next

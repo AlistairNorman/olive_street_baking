@@ -25,6 +25,7 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
     let(:current_api_user) { create :admin_user }
 
     before do
+      create :check_payment_method
       create :completed_order_with_totals,
         line_items_attributes: [{ variant: create(:variant), quantity: 1 }],
         user: allie

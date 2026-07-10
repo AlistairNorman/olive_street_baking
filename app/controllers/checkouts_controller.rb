@@ -6,7 +6,6 @@
 # is warranted.
 class CheckoutsController < CheckoutBaseController
   before_action :ensure_valid_state
-  before_action :ensure_valid_payment
   before_action :check_registration
   before_action :setup_for_current_state
 
@@ -111,18 +110,6 @@ class CheckoutsController < CheckoutBaseController
 
     @order.state = 'cart'
     redirect_to checkout_state_path(@order.checkout_steps.first)
-  end
-
-  def ensure_valid_payment
-    # Fix for https://github.com/spree/spree/issues/4117
-    # If confirmation of payment fails, redirect back to payment screen
-    return unless params[:state] == "confirm"
-    return unless @order.payment_required?
-
-    if @order.payments.valid.empty?
-      flash.keep
-      redirect_to checkout_state_path("payment")
-    end
   end
 
   def setup_for_current_state

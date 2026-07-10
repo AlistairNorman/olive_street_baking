@@ -4,8 +4,9 @@ module TinyGoatBaking
       def self.prepended(base)
         base.remove_checkout_step :address
         base.remove_checkout_step :delivery
+        base.remove_checkout_step :confirm
 
-        base.state_machine.before_transition to: :confirm, do: :create_proposed_shipments
+        base.state_machine.before_transition to: :complete, do: :create_proposed_shipments
       end
 
       ::Spree::Order.prepend self

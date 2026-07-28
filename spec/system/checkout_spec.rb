@@ -312,33 +312,39 @@ RSpec.describe 'Checkout', :js, type: :system do
   end
 
   context "when the order is fully covered by store credit" do
+    let!(:store_credit_payment_method) { create(:store_credit_payment_method) }
+    let(:user) { create(:user, email: 'store-credit@example.com', password: 'secret', password_confirmation: 'secret') }
+
     before do
-      create(:store_credit_payment_method)
-      credit_card_payment_method = create(:credit_card_payment_method)
-      check_payment_method = create(:check_payment_method)
+      stock_location.stock_items.update_all(count_on_hand: 1)
 
-      user = create(:user)
-      create(:store_credit, user: user)
-      order = Spree::TestingSupport::OrderWalkthrough.up_to(:payment, user: user)
+      # Enough credit to cover the mug and its shipping several times over, so
+      # the order is fully covered no matter what shipping costs.
+      create(:store_credit, user: user, amount: 1_000, currency: Spree::Config[:currency])
 
-      allow(order).to receive_messages(available_payment_methods: [check_payment_method, credit_card_payment_method])
-      allow_any_instance_of(CheckoutsController).to receive_messages(current_order: order)
-      allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: order.user)
+      visit login_path
+      fill_in 'Email', with: user.email
+      fill_in 'Password:', with: user.password
+      click_button 'Login'
     end
 
     it "allows the user to complete checkout using only store credit as the payment source" do
-      visit checkout_state_path(:payment)
+      visit product_path(mug)
+      click_button 'add-to-cart-button'
+      click_button "Checkout"
 
       expect(page).to have_content("Your order is fully covered by store credits, no additional payment method is required.")
-      expect(page).not_to match(/\bCheck\b/)
-      expect(page).not_to match(/\bCredit Card\b/)
+      expect(page).not_to have_css("[name='order[payments_attributes][][payment_method_id]']")
 
-      click_button "Save and Continue"
-      expect(page).to have_content("Confirm")
+      click_button "Place Order"
 
-      check "Agree to Terms of Service"
-      click_on "Place Order"
       expect(page).to have_content(I18n.t('spree.order_processed_successfully'))
+
+      order = Spree::Order.last
+      expect(order).to be_complete
+      expect(order.payments.completed.map(&:payment_method)).to eq([store_credit_payment_method])
+      expect(order.payment_state).to eq('paid')
+      expect(user.reload.available_store_credit_total(currency: order.currency)).to eq(1_000 - order.total)
     end
   end
 

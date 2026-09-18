@@ -6,9 +6,10 @@ ruby '3.4.7'
 gem 'bootsnap', require: false
 gem 'importmap-rails'
 gem 'jbuilder'
+gem 'json', '< 3'
 gem 'pg'
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.1.3'
 gem 'redis', '>= 4.0.1'
 gem 'solidus', '~> 4.7.1'
 gem 'sprockets-rails'
@@ -24,7 +25,6 @@ group :development do
   gem 'web-console'
 end
 
-gem 'canonical-rails'
 gem 'responders'
 gem 'solidus_auth_devise', '~> 2.5'
 gem 'solidus_support'

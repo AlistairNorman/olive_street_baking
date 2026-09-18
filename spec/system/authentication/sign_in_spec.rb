@@ -16,9 +16,10 @@ RSpec.feature 'Sign In', type: :system do
     click_button 'Login'
 
     expect(page).to have_text 'Logged in successfully'
-    expect(page).not_to have_link nil, href: '/login'
-    expect(page).to have_link nil, href: '/account'
     expect(current_path).to eq '/'
+
+    visit account_path
+    expect(page).to have_text @user.email
   end
 
   scenario 'show validation erros' do

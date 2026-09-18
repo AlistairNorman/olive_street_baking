@@ -86,10 +86,10 @@ RSpec.describe 'Visiting Products', type: :system do
 
     it 'has correct schema.org/Offer attributes' do
       expect(page).to have_css("#product_#{product.id} [itemprop='price'][content='19.99']")
-      expect(page).to have_css("#product_#{product.id} [itemprop='priceCurrency'][content='USD']")
+      expect(page).to have_css("#product_#{product.id} [itemprop='priceCurrency'][content='CAD']")
       click_link product.name
       expect(page).to have_css("[itemprop='price'][content='19.99']")
-      expect(page).to have_css("[itemprop='priceCurrency'][content='USD']")
+      expect(page).to have_css("[itemprop='priceCurrency'][content='CAD']")
     end
   end
 
@@ -212,14 +212,14 @@ RSpec.describe 'Visiting Products', type: :system do
   end
 
   it 'lists products without a price' do
-    stub_spree_preferences(currency: 'CAD')
+    stub_spree_preferences(currency: 'GBP')
     stub_spree_preferences(show_products_without_price: true)
     visit products_path
     expect(page).to have_content("Solidus hoodie")
   end
 
   it "does not allow to put a product without a current price in the cart" do
-    stub_spree_preferences(currency: 'CAD')
+    stub_spree_preferences(currency: 'GBP')
     stub_spree_preferences(show_products_without_price: true)
     click_link "Solidus hoodie"
     expect(page).to have_content 'This product is not available in the selected currency'

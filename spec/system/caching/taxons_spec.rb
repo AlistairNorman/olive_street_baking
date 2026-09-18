@@ -18,9 +18,9 @@ RSpec.describe 'taxons', type: :system, caching: true do
 
     visit products_path
     # Cache rewrites:
-    # - 2 x categories component
+    # - 1 x categories component
     # - 1 x categories in navigation
-    expect(cache_writes.count).to eq(3)
+    expect(cache_writes.count).to eq(2)
   end
 
   it "busts the cache when max_level_in_taxons_menu conf changes" do

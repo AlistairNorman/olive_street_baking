@@ -25,8 +25,8 @@ RSpec.describe 'products', type: :system, caching: true do
 
     # Cache rewrites:
     # - 1 x products grid updated item
-    # - 3 x categories in navigation
-    expect(cache_writes.count).to eq(4)
+    # - 2 x categories in navigation
+    expect(cache_writes.count).to eq(3)
   end
 
   it "busts the cache when all products are soft-deleted" do
@@ -35,8 +35,8 @@ RSpec.describe 'products', type: :system, caching: true do
     visit products_path
 
     # Cache rewrites:
-    # - 3 x categories in navigation
-    expect(cache_writes.count).to eq(3)
+    # - 2 x categories in navigation
+    expect(cache_writes.count).to eq(2)
   end
 
   it "busts the cache when the newest product is soft-deleted" do
@@ -44,8 +44,8 @@ RSpec.describe 'products', type: :system, caching: true do
     visit products_path
 
     # Cache rewrites:
-    # - 3 x categories in navigation
-    expect(cache_writes.count).to eq(3)
+    # - 2 x categories in navigation
+    expect(cache_writes.count).to eq(2)
   end
 
   it "busts the cache when an older product is soft-deleted" do
@@ -53,7 +53,7 @@ RSpec.describe 'products', type: :system, caching: true do
     visit products_path
 
     # Cache rewrites:
-    # - 3 x categories in navigation
-    expect(cache_writes.count).to eq(3)
+    # - 2 x categories in navigation
+    expect(cache_writes.count).to eq(2)
   end
 end

@@ -3,16 +3,14 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.feature 'Change email', type: :system do
-  include SolidusStarterFrontend::System::CheckoutHelpers
-
-  before { setup_custom_products }
+  include_context 'featured products'
 
   background do
     stub_spree_preferences(Spree::Auth::Config, signout_after_password_change: false)
 
     user = create(:user)
     visit root_path
-    click_link '', href: '/login'
+    visit login_path
 
     fill_in 'spree_user[email]', with: user.email
     fill_in 'spree_user[password]', with: 'secret'

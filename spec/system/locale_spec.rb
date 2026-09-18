@@ -13,14 +13,13 @@ RSpec.describe 'setting locale', type: :system do
     I18n.locale = I18n.default_locale
   end
 
-  context 'shopping cart link and page' do
+  context 'shopping cart page' do
     include_context "fr locale"
 
     it 'should be in french' do
       with_locale('fr') do
-        visit root_path
-        click_link 'Panier'
-        expect(page).to have_content('Panier')
+        visit cart_path
+        expect(page).to have_title('Panier')
       end
     end
   end

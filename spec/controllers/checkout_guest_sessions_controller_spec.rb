@@ -28,7 +28,7 @@ RSpec.describe CheckoutGuestSessionsController, type: :controller do
     end
 
     # Regression test for https://github.com/solidusio/solidus/issues/1588
-    context 'order in address state' do
+    context 'order in checkout' do
       let(:order) do
         create(
           :order_with_line_items,
@@ -36,8 +36,7 @@ RSpec.describe CheckoutGuestSessionsController, type: :controller do
           user: nil,
           guest_token: token,
           bill_address: nil,
-          ship_address: nil,
-          state: 'address'
+          ship_address: nil
         )
       end
 

@@ -112,7 +112,7 @@ RSpec.describe 'viewing products', type: :system do
     end
 
     context "with prices in other currency" do
-      before { Spree::Price.update_all(currency: "CAD") }
+      before { Spree::Price.update_all(currency: "GBP") }
 
       it "shows no products" do
         visit nested_taxons_path(taxonomy.root)

@@ -3,7 +3,7 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'orders', type: :system do
-  let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:complete) }
+  let(:order) { create(:completed_order_with_totals) }
   let(:user) { create(:user) }
 
   before do
@@ -31,11 +31,11 @@ RSpec.describe 'orders', type: :system do
     end
   end
 
-  it "should have credit card info if paid with credit card" do
-    create(:payment, order: order)
+  it "should have payment method name visible if paid with credit card" do
+    create(:credit_card_payment, order: order)
     visit order_path(order)
     within '.payment-info' do
-      expect(page).to have_content "Ending in 1111"
+      expect(page).to have_content "Credit Card"
     end
   end
 

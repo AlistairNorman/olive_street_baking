@@ -13,6 +13,7 @@ RSpec.describe 'Template rendering', type: :system do
 
   it 'layout should have canonical tag referencing site url' do
     Spree::Store.create!(code: 'spree', name: 'My Spree Store', url: 'spreestore.example.com', mail_from_address: 'test@example.com')
+    create(:product)
 
     visit root_path
     expect(find('link[rel=canonical]')[:href]).to eql('http://spreestore.example.com/')

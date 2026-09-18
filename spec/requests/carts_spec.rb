@@ -42,8 +42,8 @@ RSpec.describe 'Cart', type: :request do
 
     context "when authorization", with_guest_session: true do
       it "renders the edit view (on failure)" do
-        # email validation is only after address state
-        order.update_column(:state, "delivery")
+        # email validation only applies once the order has left the cart
+        order.update_column(:state, "payment")
         patch cart_path, params: { order: { email: "" } }
         expect(response).to render_template :show
       end
@@ -54,11 +54,13 @@ RSpec.describe 'Cart', type: :request do
       end
 
       it "advances the order if :checkout button is pressed" do
+        order.update!(email: 'test@email.com')
+
         expect do
           patch cart_path, params: { checkout: true }
-        end.to change { order.reload.state }.from('cart').to('address')
+        end.to change { order.reload.state }.from('cart').to('payment')
 
-        expect(response).to redirect_to checkout_state_path('address')
+        expect(response).to redirect_to checkout_state_path('payment')
       end
     end
   end

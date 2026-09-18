@@ -22,10 +22,10 @@ RSpec.feature 'Sign Out', type: :system, js: true do
   end
 
   scenario 'allow a signed in user to logout' do
-    click_link '', href: '/account'
+    visit account_path
     click_button 'Logout'
-    visit root_path
-    expect(page).to have_link nil, href: '/login'
+    visit account_path
+    expect(page).to have_text 'Login'
     expect(page).not_to have_button 'Logout'
   end
 end

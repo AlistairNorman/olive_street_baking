@@ -9,7 +9,7 @@ RSpec.describe 'Cart', type: :system do
 
   it "shows cart icon on non-cart pages" do
     visit root_path
-    expect(page).to have_selector("#link-to-cart a", visible: true)
+    expect(page).to have_selector(".cart-link", visible: true)
   end
 
   it "prevents double clicking the remove button on cart", js: true do
@@ -62,7 +62,10 @@ RSpec.describe 'Cart', type: :system do
     let(:variant) { create(:variant) }
     let(:product) { variant.product }
 
-    before { variant.option_values.destroy_all }
+    before do
+      variant.option_values.destroy_all
+      variant.stock_items.each { |stock_item| stock_item.set_count_on_hand(10) }
+    end
 
     it "still adds product to cart" do
       visit product_path(product)

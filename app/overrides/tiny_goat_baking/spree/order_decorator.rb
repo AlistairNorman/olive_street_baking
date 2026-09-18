@@ -2,11 +2,28 @@ module TinyGoatBaking
   module Spree
     module OrderDecorator
       def self.prepended(base)
+        base.singleton_class.prepend ClassMethods
+
         base.remove_checkout_step :address
         base.remove_checkout_step :delivery
         base.remove_checkout_step :confirm
 
         base.state_machine.before_transition to: :complete, do: :create_proposed_shipments
+      end
+
+      # Solidus only allows `payment_failed` to move an order from :confirm back
+      # to :payment. Without the confirm step a declined payment has nowhere to
+      # go and raises instead of returning the customer to the payment step to
+      # try again. This has to be reapplied every time the state machine is
+      # rebuilt, because rebuilding it discards events added from outside.
+      module ClassMethods
+        def define_state_machine!
+          super
+
+          state_machine.event :payment_failed do
+            transition to: :payment, from: :payment
+          end
+        end
       end
 
       private

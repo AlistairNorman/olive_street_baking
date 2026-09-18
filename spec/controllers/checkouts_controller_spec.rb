@@ -19,14 +19,14 @@ RSpec.describe CheckoutsController, type: :controller do
         before { allow(controller).to receive(:spree_current_user) { user } }
 
         it 'proceeds to the first checkout step' do
-          get :edit, params: { state: 'address' }
+          get :edit, params: { state: 'payment' }
           expect(response).to render_template :edit
         end
       end
 
       context 'when not authenticated as guest' do
         it 'redirects to registration step' do
-          get :edit, params: { state: 'address' }
+          get :edit, params: { state: 'payment' }
           expect(response).to redirect_to new_checkout_session_path
         end
       end
@@ -35,7 +35,7 @@ RSpec.describe CheckoutsController, type: :controller do
         before { order.email = 'guest@solidus.io' }
 
         it 'proceeds to the first checkout step' do
-          get :edit, params: { state: 'address' }
+          get :edit, params: { state: 'payment' }
           expect(response).to render_template :edit
         end
 
@@ -45,7 +45,7 @@ RSpec.describe CheckoutsController, type: :controller do
           end
 
           it 'redirects to registration step' do
-            get :edit, params: { state: 'address' }
+            get :edit, params: { state: 'payment' }
             expect(response).to redirect_to new_checkout_session_path
           end
         end
@@ -61,14 +61,14 @@ RSpec.describe CheckoutsController, type: :controller do
         before { allow(controller).to receive(:spree_current_user) { user } }
 
         it 'proceeds to the first checkout step' do
-          get :edit, params: { state: 'address' }
+          get :edit, params: { state: 'payment' }
           expect(response).to render_template :edit
         end
       end
 
       context 'when authenticated as guest' do
         it 'proceeds to the first checkout step' do
-          get :edit, params: { state: 'address' }
+          get :edit, params: { state: 'payment' }
           expect(response).to render_template :edit
         end
       end
@@ -76,12 +76,13 @@ RSpec.describe CheckoutsController, type: :controller do
   end
 
   context '#update' do
-    context 'when in the confirm state' do
-      before do
-        order.update(email: 'spree@example.com', state: 'confirm')
-
-        # So that the order can transition to complete successfully
-        allow(order).to receive(:payment_required?) { false }
+    context 'when in the payment state' do
+      let(:order) do
+        create(:order_with_line_items, state: 'payment', email: 'spree@example.com', user: nil, guest_token: token)
+      end
+      let(:payment_method) { create(:check_payment_method) }
+      let(:payment_params) do
+        { state: 'payment', order: { payments_attributes: [{ payment_method_id: payment_method.id }] } }
       end
 
       context 'with a token' do
@@ -89,7 +90,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
         it 'redirects to the tokenized order view' do
           request.cookie_jar.signed[:guest_token] = 'ABC'
-          post :update, params: { state: 'confirm' }
+          post :update, params: payment_params
           expect(response).to redirect_to token_order_path(order, 'ABC')
           expect(flash.notice).to eq I18n.t('spree.order_processed_successfully')
         end
@@ -103,7 +104,7 @@ RSpec.describe CheckoutsController, type: :controller do
         end
 
         it 'redirects to the standard order view' do
-          post :update, params: { state: 'confirm' }
+          post :update, params: payment_params
           expect(response).to redirect_to order_path(order)
         end
       end

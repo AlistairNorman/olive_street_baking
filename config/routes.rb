@@ -14,6 +14,14 @@ Rails.application.routes.draw do
   # If you would like to change where this engine is mounted, simply change the :at option to something different.
   # We ask that you don't use the :as option here, as Solidus relies on it being the default of "spree"
   mount Spree::Core::Engine, at: '/'
+
+  Spree::Core::Engine.routes.draw do
+    namespace :admin do
+      post '/products/:product_slug/new_bread_variants',
+           to: 'new_bread_variants#create',
+           as: :product_new_bread_variants
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

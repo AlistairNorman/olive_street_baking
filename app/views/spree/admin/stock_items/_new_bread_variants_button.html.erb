@@ -1,0 +1,5 @@
+<% content_for :page_actions do %>
+  <%= button_to t('tiny_goat_baking.new_bread_variants.button'),
+                admin_product_new_bread_variants_path(@product),
+                class: 'btn btn-primary' %>
+<% end %>

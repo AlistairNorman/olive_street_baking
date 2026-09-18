@@ -33,3 +33,10 @@ en:
     admin:
       tab:
         cookies: "Cookies"
+  tiny_goat_baking:
+    new_bread_variants:
+      button: "Add 10 more weeks"
+      created:
+        one: "Added 1 more week of breads."
+        other: "Added %{count} more weeks of breads."
+      no_existing_pickup_date: "There are no pickup dates to add new breads after."

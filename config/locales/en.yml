@@ -40,3 +40,6 @@ en:
         one: "Added 1 more week of breads."
         other: "Added %{count} more weeks of breads."
       no_existing_pickup_date: "There are no pickup dates to add new breads after."
+    order_timestamps:
+      created_at: "Created"
+      updated_at: "Updated"

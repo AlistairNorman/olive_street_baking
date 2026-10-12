@@ -1,0 +1,6 @@
+<% [:created_at, :updated_at].each do |attribute| %>
+  <dt><%= t(attribute, scope: 'tiny_goat_baking.order_timestamps') %>:</dt>
+  <dd id="order_<%= attribute %>">
+    <%= @order.public_send(attribute).in_time_zone('Pacific Time (US & Canada)').strftime('%B %-d, %Y at %-l:%M %p %Z') %>
+  </dd>
+<% end %>

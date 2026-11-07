@@ -9,14 +9,28 @@ window.addEventListener('DOMContentLoaded', () => {
     const selectedRadio = document.querySelector("[data-js='variant-radio'][checked='checked']");
     updateVariantPrice(selectedRadio);
     updateVariantImages(selectedRadio.value);
+    updateQuantityOptions(selectedRadio);
   }
 
   radios.forEach(radio => {
     radio.addEventListener('click', () => {
       updateVariantPrice(radio);
       updateVariantImages(radio.value);
+      updateQuantityOptions(radio);
     });
   });
+
+  function updateQuantityOptions(variant) {
+    const quantitySelect = document.getElementById('quantity');
+    const maxQuantity = parseInt(variant.dataset.maxQuantity, 10);
+    if (!quantitySelect || !maxQuantity) { return; }
+
+    const selectedQuantity = Math.min(parseInt(quantitySelect.value, 10) || 1, maxQuantity);
+    quantitySelect.replaceChildren(
+      ...Array.from({ length: maxQuantity }, (_, index) => new Option(index + 1, index + 1))
+    );
+    quantitySelect.value = selectedQuantity;
+  }
 
   thumbnailsLinks.forEach(thumbnailLink => {
     thumbnailLink.addEventListener('click', (event) => {

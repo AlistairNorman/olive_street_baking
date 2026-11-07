@@ -5,6 +5,10 @@ module ProductOptionsHelper
     product.variants_and_option_values_for(current_pricing_options)
   end
 
+  def default_variant(product)
+    product_variants_with_options(product).find(&:in_stock?) || product.master
+  end
+
   def sorted_option_values(variant)
     variant.option_values.sort_by { |value| value.option_type.position }.map(&:id)
   end

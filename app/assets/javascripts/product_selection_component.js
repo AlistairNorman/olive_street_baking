@@ -1,25 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const optionTypeSelector = document.querySelectorAll(".selection-items");
-  for (var i = 0; i < optionTypeSelector.length; i++) {
-    optionTypeSelector[i].addEventListener("click", onSelection);
+  const optionTypeSelects = document.querySelectorAll("select[data-option-index]");
+  optionTypeSelects.forEach((select) => select.addEventListener("change", onSelection));
+  if (optionTypeSelects.length > 0) {
+    setTimeout(() => { onSelection({ target: optionTypeSelects[0] }); }, 1);
   }
-  selectFirstVariant();
 });
 
-function selectFirstVariant() {
-  const firstVariant = document.querySelector("[data-option-index]");
-  if (firstVariant) {
-    setTimeout(() => { firstVariant.click(); }, 1);
-  }
-}
-
 function onSelection(event) {
-  document.getElementById(`selected-${event.target.name}`).innerText = event.target.dataset.presentation;
-
-  const optionIndex = event.target.attributes["data-option-index"].value;
-  const nextType = document.querySelector(`[data-option-index="${parseInt(optionIndex, 10) + 1}"]`);
-  if (nextType) {
-    updateOptions(nextType.name, optionIndex);
+  const optionIndex = event.target.dataset.optionIndex;
+  const nextSelect = document.querySelector(`select[data-option-index="${parseInt(optionIndex, 10) + 1}"]`);
+  if (nextSelect) {
+    updateOptions(nextSelect, optionIndex);
   }
   selectVariant();
 }
@@ -34,28 +25,20 @@ function updateStockView(status) {
   }
 }
 
-function updateOptions(nextTypeName, optionIndex) {
+function updateOptions(nextSelect, optionIndex) {
   const nextOptionValues = this.nextOptionValues(optionIndex);
 
-  let firstRadio = null;
-  const allNextOptions = [...document.querySelectorAll(`[name="${nextTypeName}"]`)];
-  allNextOptions.forEach((radio) => {
-    if (!nextOptionValues.includes(parseInt(radio.value, 10))) {
-      radio.disabled = true;
-      radio.parentElement.classList.add("d-hide");
-    } else {
-      radio.disabled = false;
-      radio.parentElement.classList.remove("d-hide");
-      if (!firstRadio) { firstRadio = radio; }
-    }
+  [...nextSelect.options].forEach((option) => {
+    const available = nextOptionValues.includes(parseInt(option.value, 10));
+    option.disabled = !available;
+    option.hidden = !available;
   });
 
-  const nextSelectedRadio = document.querySelector(`[name="${nextTypeName}"]:checked`);
-  if (nextSelectedRadio.disabled) {
-    firstRadio.click();
-  } else {
-    nextSelectedRadio.click();
+  if (nextSelect.selectedOptions[0]?.disabled) {
+    const firstAvailable = [...nextSelect.options].find((option) => !option.disabled);
+    if (firstAvailable) { nextSelect.value = firstAvailable.value; }
   }
+  onSelection({ target: nextSelect });
 }
 
 function nextOptionValues(optionIndex) {
@@ -96,7 +79,7 @@ function currentSelection() {
   let i = 0;
   const selectionArr = [];
   while (document.querySelector(`[data-option-index="${i}"]`)) {
-    selectionArr.push(parseInt(document.querySelector(`[data-option-index="${i}"]:checked`).value, 10));
+    selectionArr.push(parseInt(document.querySelector(`[data-option-index="${i}"]`).value, 10));
     i += 1;
   }
   return selectionArr;

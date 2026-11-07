@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_170306) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_04_223311) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1072,6 +1072,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_170306) do
     t.string "available_locales"
     t.string "bcc_email"
     t.integer "reverse_charge_status", default: 0, null: false, comment: "Enum values: 0 = disabled, 1 = enabled, 2 = not_validated"
+    t.integer "address_id"
+    t.index ["address_id"], name: "index_spree_stores_on_address_id"
     t.index ["code"], name: "index_spree_stores_on_code"
     t.index ["default"], name: "index_spree_stores_on_default"
   end
@@ -1320,6 +1322,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_170306) do
   add_foreign_key "spree_shipping_method_categories", "spree_shipping_categories", column: "shipping_category_id"
   add_foreign_key "spree_shipping_method_categories", "spree_shipping_methods", column: "shipping_method_id"
   add_foreign_key "spree_states", "spree_countries", column: "country_id", on_delete: :cascade
+  add_foreign_key "spree_stores", "spree_addresses", column: "address_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_rates", column: "tax_rate_id"
   add_foreign_key "spree_user_addresses", "spree_addresses", column: "address_id"

@@ -11,7 +11,7 @@ module TinyGoatBaking
         stock_item = ::Spree::StockItem.accessible_by(current_ability, :update).find(params[:id])
         allie = ::Spree::User.find_by(email: ENV['ALLIE_EMAIL'])
 
-        pickup_date = pickup_date_of(stock_item.variant)
+        pickup_date = stock_item.variant.pickup_date
 
         return unless allie && pickup_date
         return if allie_has_order_in_week?(allie, pickup_date)
@@ -53,14 +53,8 @@ module TinyGoatBaking
         week = pickup_date.all_week
 
         allie.orders.complete.includes(line_items: { variant: { option_values: :option_type } }).any? { |order|
-          order.line_items.any? { |line_item| week.cover?(pickup_date_of(line_item.variant)) }
+          order.line_items.any? { |line_item| week.cover?(line_item.variant.pickup_date) }
         }
-      end
-
-      def pickup_date_of(variant)
-        variant.option_values.find { |option_value|
-          option_value.option_type.name == ::TinyGoatBaking::CreateNewBreadVariants::PICKUP_DATE_OPTION_TYPE_NAME
-        }&.name&.to_date
       end
 
       ::Spree::Api::StockItemsController.prepend self

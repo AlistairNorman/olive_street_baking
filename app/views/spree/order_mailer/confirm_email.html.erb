@@ -4,9 +4,22 @@
       <p class="lede">
         Thanks for your order!
       </p>
-      <% if pickup_date = @order.line_items.last&.variant&.option_values&.where(option_type: Spree::OptionType.find_by(name: "Pickup Date"))&.sole&.name %>
+      <% pickup_dates = @order.pickup_dates.map { |pickup_date| pickup_date.strftime("%A, %B %-d, %Y") } %>
+      <% if pickup_dates.one? %>
         <p>
-          Your bread will be ready for pickup on <%= pickup_date %> by 9am. Get in touch if you have any questions about pickup.
+          Your bread will be ready for pickup on <%= pickup_dates.sole %> by 9am. Get in touch if you have any questions about pickup.
+        </p>
+      <% elsif pickup_dates.any? %>
+        <p>
+          Your bread will be ready for pickup by 9am on:
+        </p>
+        <ul>
+          <% pickup_dates.each do |pickup_date| %>
+            <li><%= pickup_date %></li>
+          <% end %>
+        </ul>
+        <p>
+          Get in touch if you have any questions about pickup.
         </p>
       <% end %>
       <p>

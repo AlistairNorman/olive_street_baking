@@ -26,6 +26,10 @@ module TinyGoatBaking
         end
       end
 
+      def pickup_dates
+        line_items.filter_map { |line_item| line_item.variant.pickup_date }.uniq.sort
+      end
+
       private
 
       # Solidus hangs `add_store_credit_payments` off the transition into

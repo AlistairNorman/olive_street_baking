@@ -22,7 +22,8 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
         stock_location, stock_item
       )
     }
-    let!(:variant) { create(:variant) }
+    let(:pickup_date_type) { create :option_type, name: "Pickup Date" }
+    let!(:variant) { bread_variant(pickup_date: Date.new(2026, 11, 14)) }
     let!(:stock_location) { variant.stock_locations.first }
     let(:stock_item) { variant.stock_items.first }
     let(:allie) { create :user, email: "allie@example.com" }
@@ -31,7 +32,7 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
     before do
       create :check_payment_method
       create :completed_order_with_totals,
-        line_items_attributes: [{ variant: create(:variant), quantity: 1 }],
+        line_items_attributes: [{ variant: bread_variant(pickup_date: Date.new(2026, 11, 7)), quantity: 1 }],
         user: allie
 
       allow(Spree::User).to receive(:find_by).with(email: "allie@example.com") { allie }
@@ -40,7 +41,14 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
         .with(hash_including(:spree_api_key)) { current_api_user }
     end
 
-    context "when the variant already has an order for Allie" do
+    def bread_variant(pickup_date:)
+      option_value = create :option_value,
+        option_type: pickup_date_type,
+        name: pickup_date.strftime("%B %d, %Y")
+      create :variant, option_values: [option_value]
+    end
+
+    context "when Allie already has an order for the variant" do
       before do
         create :completed_order_with_totals,
           line_items_attributes: [{ variant: variant, quantity: 1 }],
@@ -54,7 +62,21 @@ RSpec.describe Spree::Api::StockItemsController, type: :request do
       end
     end
 
-    context "when the variant does not have any orders for Allie" do
+    context "when Allie already has an order for another pickup date in the same week" do
+      before do
+        create :completed_order_with_totals,
+          line_items_attributes: [{ variant: bread_variant(pickup_date: Date.new(2026, 11, 11)), quantity: 1 }],
+          user: allie
+      end
+
+      it "doesn't create a new order for her" do
+        expect { subject }
+          .not_to change { Spree::Order.count }
+          .from(2)
+      end
+    end
+
+    context "when Allie has no order for that week" do
       it "creates a new order for her" do
         expect { subject }
           .to change { Spree::Order.complete.count }

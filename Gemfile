@@ -29,7 +29,7 @@ end
 gem 'responders'
 gem 'solidus_auth_devise', '~> 2.5'
 gem 'solidus_support'
-gem 'tailwindcss-rails'
+gem 'tailwindcss-rails', '~> 3.3'
 gem 'truncate_html'
 gem 'view_component', '~> 3.0'
 

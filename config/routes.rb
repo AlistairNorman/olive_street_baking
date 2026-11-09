@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       post '/products/:product_slug/new_bread_variants',
            to: 'new_bread_variants#create',
            as: :product_new_bread_variants
+      post '/orders/:order_id/payment_capture',
+           to: 'order_payment_captures#create',
+           as: :order_payment_capture
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

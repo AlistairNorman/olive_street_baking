@@ -30,6 +30,10 @@ module TinyGoatBaking
         line_items.filter_map { |line_item| line_item.variant.pickup_date }.uniq.sort
       end
 
+      def capturable_payments
+        payments.select { |payment| payment.actions.include?("capture") }
+      end
+
       private
 
       # Solidus hangs `add_store_credit_payments` off the transition into

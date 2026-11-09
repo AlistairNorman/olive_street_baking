@@ -5,7 +5,7 @@ module TinyGoatBaking
         virtual_path: 'spree/admin/orders/index',
         name: 'order_pickup_dates_header',
         insert_before: '[data-hook="admin_orders_index_headers"] th:contains("sort_link @search, :state")',
-        text: "<th><%= t('tiny_goat_baking.order_pickup_dates.header') %></th>"
+        text: "<th><%= sort_link @search, :pickup_date, t('tiny_goat_baking.order_pickup_dates.header') %></th>"
       )
 
       ::Deface::Override.new(

@@ -32,4 +32,29 @@ RSpec.describe 'Pickup dates on the admin orders page', type: :system do
       end
     end
   end
+
+  context 'with orders for several pickup dates' do
+    let!(:december_order) {
+      create :completed_order_with_totals,
+        line_items_attributes: [{ variant: bread_variant(pickup_date: Date.new(2026, 12, 5)), quantity: 1 }]
+    }
+    let!(:january_order) {
+      create :completed_order_with_totals,
+        line_items_attributes: [{ variant: bread_variant(pickup_date: Date.new(2027, 1, 9)), quantity: 1 }]
+    }
+
+    def order_numbers
+      all('#listing_orders tbody tr').map { |row| row.find('td', text: /\AR\d+\z/).text }
+    end
+
+    it 'sorts orders by their earliest pickup date' do
+      visit spree.admin_orders_path
+
+      click_link 'Pickup Date'
+      expect(order_numbers).to eq [order.number, december_order.number, january_order.number]
+
+      click_link 'Pickup Date'
+      expect(order_numbers).to eq [january_order.number, december_order.number, order.number]
+    end
+  end
 end

@@ -59,7 +59,7 @@ Spree::Backend::Config.configure do |config|
   config.menu_items << config.class::MenuItem.new(
     label: :cookies,
     icon: 'copyright', # see https://fontawesome.com/v4/icons/
-    url: "cookies",
+    url: "/admin/cookies",
     condition: -> { can?(:admin, Cookie) },
     match_path: '/cookies',
   )

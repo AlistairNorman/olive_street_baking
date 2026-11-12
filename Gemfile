@@ -12,7 +12,10 @@ gem 'pg'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 8.1.3'
 gem 'redis', '>= 4.0.1'
-gem 'solidus', '~> 4.8.0'
+git 'https://github.com/solidusio/solidus.git', branch: 'main' do
+  gem 'solidus'
+  gem 'solidus_admin'
+end
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'

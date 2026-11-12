@@ -4,7 +4,7 @@
   <div class="select-input">
     <%= select_tag(
       "option_type_#{option_type.id}",
-      options_from_collection_for_select(option_values(product: product, option_type: option_type), :id, :presentation),
+      pickup_date_options(product),
       class: "min-w-[240px]",
       "data-option-index": index
     ) %>

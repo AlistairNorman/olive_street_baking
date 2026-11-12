@@ -17,10 +17,21 @@ module ProductOptionsHelper
     product.option_types.sort_by(&:position)
   end
 
-  # move to model
-  def option_values(product:, option_type:)
-    product.variants.in_stock.map do |variant|
-      variant.option_values.find { |option_value| option_value.option_type_id == option_type.id }
-    end.compact.uniq
+  def upcoming_bakes(product)
+    @upcoming_bakes ||= {}
+    @upcoming_bakes[product.id] ||= product.variants.select(&:upcoming_bake?).sort_by(&:pickup_date)
+  end
+
+  def pickup_date_label(variant)
+    presentation = variant.pickup_date_option_value.presentation
+    variant.in_stock? ? presentation : "#{presentation} (sold out)"
+  end
+
+  def pickup_date_options(product)
+    options_for_select(
+      upcoming_bakes(product).map { |variant|
+        [pickup_date_label(variant), variant.pickup_date_option_value.id, { disabled: !variant.in_stock? }]
+      }
+    )
   end
 end

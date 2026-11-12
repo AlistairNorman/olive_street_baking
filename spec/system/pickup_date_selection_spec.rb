@@ -66,6 +66,7 @@ RSpec.describe 'Choosing a pickup date', type: :system do
       variant.stock_items.each { |stock_item| stock_item.set_count_on_hand(0) }
       create :line_item, variant: variant, order: create(:completed_order_with_totals)
     }
+    product.master.stock_items.update_all(count_on_hand: 0, backorderable: false)
 
     visit product_path(product)
 
@@ -74,5 +75,6 @@ RSpec.describe 'Choosing a pickup date', type: :system do
     end
     expect(page).not_to have_select "Pickup Date"
     expect(page).not_to have_button "add-to-cart-button"
+    expect(page).not_to have_content "Out of Stock"
   end
 end

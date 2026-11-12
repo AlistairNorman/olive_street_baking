@@ -10,6 +10,8 @@
 
 <% if product.master.can_supply? %>
   <link itemprop="availability" href="http://schema.org/InStock" />
+<% elsif product.variants.in_stock.empty? && upcoming_bakes(product).any? %>
+  <link itemprop="availability" href="http://schema.org/OutOfStock" />
 <% elsif product.variants.in_stock.empty? %>
   <span
     class="<%= class_names %>"

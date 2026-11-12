@@ -12,34 +12,34 @@ RSpec.describe 'Cart', type: :system do
     expect(page).to have_selector(".cart-link", visible: true)
   end
 
-  it "prevents double clicking the remove button on cart", js: true do
-    @product = create(:product, name: "Solidus mug set")
+  def add_mug_set_to_cart
+    product = create(:product, name: "Solidus mug set")
+    product.master.stock_items.each { |stock_item| stock_item.set_count_on_hand(5) }
 
     visit products_path
     click_link "Solidus mug set"
     click_button "add-to-cart-button"
+    expect(page).to have_content("Shopping Cart")
+  end
+
+  it "prevents double clicking the update button on cart", js: true do
+    add_mug_set_to_cart
 
     # prevent form submit to verify button is disabled
     page.execute_script("document.getElementById('update-cart').onsubmit = function(){return false;}")
 
     expect(page).not_to have_selector('button#update-button[disabled]')
-    click_button 'Remove'
+    click_button 'Update'
     expect(page).to have_selector('button#update-button[disabled]')
   end
 
-  it 'allows you to remove an item from the cart', js: true do
-    create(:product, name: "Solidus mug set")
-    visit products_path
-    click_link "Solidus mug set"
-    click_button "add-to-cart-button"
-    click_button "Remove"
+  it 'allows you to remove an item from the cart by setting its quantity to zero', js: true do
+    add_mug_set_to_cart
+    find(".cart-item__quantity select").select("0")
+    click_button "Update"
     expect(page).not_to have_content("Line items quantity must be an integer")
     expect(page).not_to have_content("Solidus mug set")
     expect(page).to have_content("Your cart is empty")
-
-    within "#link-to-cart" do
-      expect(page.text).to eq('')
-    end
   end
 
   skip 'allows you to empty the cart', js: true do

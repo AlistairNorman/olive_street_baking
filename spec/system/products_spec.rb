@@ -100,6 +100,7 @@ RSpec.describe 'Visiting Products', type: :system do
 
     let!(:product) do
       product = Spree::Product.find_by(name: 'Solidus hoodie')
+      product.variants.each { |variant| variant.stock_items.each { |stock_item| stock_item.set_count_on_hand(10) } }
       product.price = 19.99
       product.tap(&:save)
     end
@@ -136,7 +137,13 @@ RSpec.describe 'Visiting Products', type: :system do
 
   context 'a product with variants' do
     let(:product) { Spree::Product.find_by(name: 'Solidus hoodie') }
-    let(:option_value) { create(:option_value) }
+    let(:pickup_date) { 1.week.from_now.to_date.strftime("%B %d, %Y") }
+    let(:option_value) do
+      create :option_value,
+        option_type: create(:option_type, name: "Pickup Date", presentation: "Pickup Date"),
+        name: pickup_date,
+        presentation: pickup_date
+    end
     let!(:variant) { product.variants.create!(price: 5.59) }
 
     before do
@@ -148,6 +155,7 @@ RSpec.describe 'Visiting Products', type: :system do
 
       product.option_types << option_value.option_type
       variant.option_values << option_value
+      variant.stock_items.each { |stock_item| stock_item.set_count_on_hand(10) }
     end
 
     it 'displays price of first variant listed', js: true do

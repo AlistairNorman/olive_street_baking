@@ -45,6 +45,8 @@ en:
       confirm: "Capture %{total} for %{number}?"
       captured: "Captured payment for %{number}."
       failed: "Could not capture payment for %{number}: %{message}"
+    order_payment_methods:
+      header: "Payment Method"
     order_pickup_dates:
       header: "Pickup Date"
     order_timestamps:

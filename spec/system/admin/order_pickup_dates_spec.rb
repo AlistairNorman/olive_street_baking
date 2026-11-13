@@ -3,7 +3,7 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Pickup dates on the admin orders page', type: :system do
-  stub_authorization!
+  before { sign_in create(:admin_user) }
 
   let(:pickup_date_type) { create :option_type, name: "Pickup Date" }
 
@@ -23,13 +23,11 @@ RSpec.describe 'Pickup dates on the admin orders page', type: :system do
   }
 
   it 'shows every pickup date in the order' do
-    visit spree.admin_orders_path
+    visit solidus_admin.orders_path
 
-    within("#listing_orders") do
-      expect(page).to have_css "th", text: "Pickup Date"
-      within("tr", text: order.number) do
-        expect(page).to have_content(/Sat, Nov 14, 2026\s+Sat, Nov 21, 2026/)
-      end
+    expect(page).to have_css "th", text: "Pickup Date"
+    within("tr", text: order.number) do
+      expect(page).to have_content(/Sat, Nov 14, 2026\s+Sat, Nov 21, 2026/)
     end
   end
 
@@ -44,11 +42,11 @@ RSpec.describe 'Pickup dates on the admin orders page', type: :system do
     }
 
     def order_numbers
-      all('#listing_orders tbody tr').map { |row| row.find('td', text: /\AR\d+\z/).text }
+      all('tbody tr').map { |row| row.all('td').first.text }
     end
 
     it 'sorts orders by their earliest pickup date' do
-      visit spree.admin_orders_path
+      visit solidus_admin.orders_path
 
       click_link 'Pickup Date'
       expect(order_numbers).to eq [order.number, december_order.number, january_order.number]

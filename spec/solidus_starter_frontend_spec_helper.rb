@@ -46,6 +46,7 @@ RSpec.configure do |config|
   config.include Spree::TestingSupport::Translations
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :system
   config.include ViewComponent::TestHelpers, type: :component
   config.include Capybara::RSpecMatchers, type: :component
   config.include ActiveJob::TestHelper

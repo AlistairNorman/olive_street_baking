@@ -7,8 +7,13 @@ SolidusAdmin::Config.configure do |config|
   # this option will likely break some admin pages and components.
   config.enable_alpha_features = false
 
+  # After solidus_legacy_promotions registers its own orders list.
+  Rails.application.config.after_initialize do
+    config.components["orders/index"] = "TinyGoatBaking::SolidusAdmin::Orders::Index::Component"
+  end
+
   legacy_admin_paths = [
-    %r{\A/admin/orders(/|\z)},
+    %r{\A/admin/orders/.+},
     # The new admin saves stock without going through the API, which is what
     # makes Allie's order.
     %r{\A/admin/stock_items(/|\z)},

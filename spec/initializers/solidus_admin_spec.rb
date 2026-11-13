@@ -11,7 +11,7 @@ RSpec.describe SolidusAdmin::Config do
     context "on the orders list" do
       let(:path) { "/admin/orders" }
 
-      it { is_expected.to be true }
+      it { is_expected.to be false }
     end
 
     context "on an order's pages" do
@@ -51,7 +51,7 @@ RSpec.describe SolidusAdmin::Config do
     end
 
     context "on a page whose path only starts like a legacy one" do
-      let(:path) { "/admin/orders_archive" }
+      let(:path) { "/admin/stock_items_archive" }
 
       it { is_expected.to be false }
     end

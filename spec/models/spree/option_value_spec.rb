@@ -46,6 +46,14 @@ RSpec.describe Spree::OptionValue, type: :model do
       end
     end
 
+    context "when the day has an ordinal suffix" do
+      let(:name) { "Jan 21st, 2025" }
+
+      it "stores the date from the name" do
+        expect { subject }.to change { option_value.pickup_date }.from(nil).to(Date.new(2025, 1, 21))
+      end
+    end
+
     context "when the name is changed to another day" do
       before { option_value.save! }
 

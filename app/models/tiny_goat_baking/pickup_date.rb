@@ -10,7 +10,7 @@ module TinyGoatBaking
 
     def self.parse(name)
       FORMATS.each do |format|
-        pickup_date = Date.strptime(name.to_s.strip, format)
+        pickup_date = Date.strptime(name.to_s.strip.sub(/(\d)(st|nd|rd|th)\b/, '\1'), format)
         weekday = name[/\A(\w+),/, 1]
         return weekday.nil? || [pickup_date.strftime("%a"), pickup_date.strftime("%A")].include?(weekday) ? pickup_date : nil
       rescue Date::Error

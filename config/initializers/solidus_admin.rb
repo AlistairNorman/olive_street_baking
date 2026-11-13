@@ -14,9 +14,6 @@ SolidusAdmin::Config.configure do |config|
 
   legacy_admin_paths = [
     %r{\A/admin/orders/.+},
-    # The new admin saves stock without going through the API, which is what
-    # makes Allie's order.
-    %r{\A/admin/stock_items(/|\z)},
     %r{\A/admin/products/[^/]+/(stock|new_bread_variants)(/|\z)}
   ]
   config.force_legacy_admin_proc = ->(request) {

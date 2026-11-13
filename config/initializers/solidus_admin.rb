@@ -12,6 +12,9 @@ SolidusAdmin::Config.configure do |config|
     config.components["orders/index"] = "TinyGoatBaking::SolidusAdmin::Orders::Index::Component"
   end
   config.components["stock_items/index"] = "TinyGoatBaking::SolidusAdmin::StockItems::Index::Component"
+  config.components["cookies/index"] = "TinyGoatBaking::SolidusAdmin::Cookies::Index::Component"
+  config.components["cookies/new"] = "TinyGoatBaking::SolidusAdmin::Cookies::New::Component"
+  config.components["cookies/edit"] = "TinyGoatBaking::SolidusAdmin::Cookies::Edit::Component"
 
   legacy_admin_paths = [
     %r{\A/admin/orders/.+}

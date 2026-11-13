@@ -20,6 +20,13 @@ Rails.application.routes.draw do
   # We ask that you don't use the :as option here, as Solidus relies on it being the default of "spree"
   mount Spree::Core::Engine, at: '/'
 
+  SolidusAdmin::Engine.routes.draw do
+    require "solidus_admin/admin_resources"
+    extend SolidusAdmin::AdminResources
+
+    admin_resources :cookies, except: [:show], controller: "/admin/cookies"
+  end
+
   Spree::Core::Engine.routes.draw do
     namespace :admin do
       post '/products/:product_slug/new_bread_variants',

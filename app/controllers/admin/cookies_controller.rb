@@ -1,16 +1,13 @@
 module Admin
-  class CookiesController < ::Spree::Admin::ResourceController
-    def index
-    end
-
+  class CookiesController < ::SolidusAdmin::ResourcesController
     private
 
-    def model_class
-      Cookie
-    end
+    def resource_class = Cookie
 
-    def routes_proxy
-      self
+    def authorization_subject = Cookie
+
+    def permitted_resource_params
+      params.require(:cookie).permit(:name, :ingredients)
     end
   end
 end

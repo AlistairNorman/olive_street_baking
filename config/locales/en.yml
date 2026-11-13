@@ -29,6 +29,19 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      cookie:
+        one: "Cookie"
+        other: "Cookies"
+  admin:
+    cookies:
+      create:
+        success: "Cookie added."
+      update:
+        success: "Cookie updated."
+      destroy:
+        success: "Cookies deleted."
   spree:
     admin:
       tab:

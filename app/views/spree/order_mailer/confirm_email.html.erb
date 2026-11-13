@@ -4,7 +4,7 @@
       <p class="lede">
         Thanks for your order!
       </p>
-      <% pickup_dates = @order.pickup_dates.map { |pickup_date| pickup_date.strftime("%A, %B %-d, %Y") } %>
+      <% pickup_dates = @order.pickup_dates.map { |pickup_date| TinyGoatBaking::PickupDate.display(pickup_date) } %>
       <% if pickup_dates.one? %>
         <p>
           Your bread will be ready for pickup on <%= pickup_dates.sole %> by 9am. Get in touch if you have any questions about pickup.

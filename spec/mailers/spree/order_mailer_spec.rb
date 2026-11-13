@@ -19,8 +19,8 @@ RSpec.describe Spree::OrderMailer, type: :mailer do
     context "when every loaf is for the same pickup date" do
       let(:line_items_attributes) { [{ variant: bread_variant(pickup_date: Date.new(2026, 11, 7)), quantity: 2 }] }
 
-      it { is_expected.to include "ready for pickup on Saturday, November 7, 2026 by 9am" }
-      it { is_expected.to include "Pickup Date: Sat, Nov 7, 2026" }
+      it { is_expected.to include "ready for pickup on Saturday, November 7th, 2026 by 9am" }
+      it { is_expected.to include "Pickup Date: Saturday, November 7th, 2026" }
     end
 
     context "when the loaves are for different pickup dates" do
@@ -31,7 +31,7 @@ RSpec.describe Spree::OrderMailer, type: :mailer do
         ]
       }
 
-      it { is_expected.to match(/Saturday, November 14, 2026.*Saturday, November 21, 2026/m) }
+      it { is_expected.to match(/Saturday, November 14th, 2026.*Saturday, November 21st, 2026/m) }
     end
 
     context "when no loaf has a pickup date" do

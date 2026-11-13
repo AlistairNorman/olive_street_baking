@@ -3,10 +3,9 @@
 module TinyGoatBaking
   module PickupDate
     FORMATS = ["%a, %b %d, %Y", "%b %d, %Y"].freeze
-    DISPLAY_FORMAT = "%a, %b %-d, %Y"
 
     def self.display(pickup_date)
-      pickup_date.strftime(DISPLAY_FORMAT)
+      "#{pickup_date.strftime('%A, %B')} #{pickup_date.day.ordinalize}, #{pickup_date.year}"
     end
 
     def self.parse(name)

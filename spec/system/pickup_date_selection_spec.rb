@@ -18,7 +18,7 @@ RSpec.describe 'Choosing a pickup date', type: :system do
   end
 
   def shown(pickup_date)
-    pickup_date.strftime("%a, %b %-d, %Y")
+    "#{pickup_date.strftime('%A, %B')} #{pickup_date.day.ordinalize}, #{pickup_date.year}"
   end
 
   before do

@@ -27,7 +27,7 @@ RSpec.describe 'Pickup dates on the admin orders page', type: :system do
 
     expect(page).to have_css "th", text: "Pickup Date"
     within("tr", text: order.number) do
-      expect(page).to have_content(/Sat, Nov 14, 2026\s+Sat, Nov 21, 2026/)
+      expect(page).to have_content(/Saturday, November 14th, 2026\s+Saturday, November 21st, 2026/)
     end
   end
 

@@ -11,6 +11,7 @@ SolidusAdmin::Config.configure do |config|
   Rails.application.config.after_initialize do
     config.components["orders/index"] = "TinyGoatBaking::SolidusAdmin::Orders::Index::Component"
   end
+  config.components["ui/table"] = "TinyGoatBaking::SolidusAdmin::UI::Table::Component"
   config.components["stock_items/index"] = "TinyGoatBaking::SolidusAdmin::StockItems::Index::Component"
   config.components["cookies/index"] = "TinyGoatBaking::SolidusAdmin::Cookies::Index::Component"
   config.components["cookies/new"] = "TinyGoatBaking::SolidusAdmin::Cookies::New::Component"

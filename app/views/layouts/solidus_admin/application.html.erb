@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="<%= current_locale %>">
+  <head>
+    <%= favicon_link_tag 'solidus_admin/favicon.ico' %>
+
+    <title><%= solidus_admin_title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-cache-control" content="no-cache">
+    <meta name="turbo-prefetch" content="false">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag SolidusAdmin::Config.theme_path(session[:admin_light_theme]), media: '(prefers-color-scheme: light)', "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag SolidusAdmin::Config.theme_path(session[:admin_dark_theme]), media: '(prefers-color-scheme: dark)', "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags "solidus_admin/application", importmap: SolidusAdmin.importmap %>
+    <meta name="turbo-refresh-scroll" content="preserve">
+  </head>
+
+  <body class="bg-gray-15 font-sans text-sm">
+    <%= render component("layout/skip_link").new(href: "#main") %>
+    <div class="md:flex gap-0">
+      <input type="checkbox" id="navigation-toggle" class="peer sr-only" aria-label="<%= t("tiny_goat_baking.admin_navigation.menu") %>">
+      <div class="md:hidden sticky top-0 z-20 flex items-center h-12 px-4 border-b border-gray-100 bg-gray-15 peer-focus-visible:outline peer-focus-visible:-outline-offset-2">
+        <label for="navigation-toggle" class="flex items-center gap-2 font-semibold text-black cursor-pointer">
+          <%= render component("ui/icon").new(name: "menu-line", class: "w-5 h-5 fill-current") %>
+          <%= t("tiny_goat_baking.admin_navigation.menu") %>
+        </label>
+      </div>
+      <div class="
+        hidden peer-checked:block fixed inset-x-0 top-12 bottom-0 z-10 overflow-y-auto bg-gray-15
+        md:block md:static md:min-w-[240px] md:border-r md:border-r-gray-100 md:relative
+      ">
+        <div class="min-h-full md:min-h-screen md:top-0 md:sticky flex">
+          <%= render component("layout/navigation").new(store: current_store) %>
+        </div>
+      </div>
+
+      <main id="main" class="flex-grow min-w-0">
+        <%= yield %>
+      </main>
+    </div>
+
+    <%= render component("layout/flashes/alerts").new(alerts:) %>
+    <%= render component("layout/flashes/toasts").new(toasts:) %>
+    <%= render component("layout/confirm").new %>
+  </body>
+</html>

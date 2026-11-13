@@ -12,5 +12,7 @@ module.exports = {
 
     // Include paths to your own components.
     `${__dirname}/../../app/components/admin/**/*`,
+    `${__dirname}/../../app/components/tiny_goat_baking/solidus_admin/**/*`,
+    `${__dirname}/../../app/views/layouts/solidus_admin/**/*`,
   ],
 }

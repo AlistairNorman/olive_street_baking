@@ -5,6 +5,24 @@ class TinyGoatBaking::SolidusAdmin::Orders::Index::Component < SolidusLegacyProm
     super.insert(1, pickup_date_column) + [payment_method_column, capture_column]
   end
 
+  {
+    total_column: :md,
+    payment_column: :lg,
+    items_column: :xl,
+    shipment_column: :xl,
+    state_column: :"2xl",
+    date_column: :"2xl"
+  }.each do |column, breakpoint|
+    define_method(column) { super().merge(visible_from: breakpoint) }
+  end
+
+  def customer_column
+    super.merge(
+      col: {class: "md:w-1/5"},
+      data: ->(order) { tag.div(order.email, class: "break-words") }
+    )
+  end
+
   def pickup_date_column
     {
       header: -> { pickup_date_sort_link },
@@ -16,6 +34,7 @@ class TinyGoatBaking::SolidusAdmin::Orders::Index::Component < SolidusLegacyProm
 
   def payment_method_column
     {
+      visible_from: :lg,
       header: t("tiny_goat_baking.order_payment_methods.header"),
       data: ->(order) { order.payments.valid.first&.payment_method&.name }
     }
@@ -23,6 +42,7 @@ class TinyGoatBaking::SolidusAdmin::Orders::Index::Component < SolidusLegacyProm
 
   def capture_column
     {
+      col: {class: "w-24"},
       header: tag.span(t("tiny_goat_baking.order_payment_captures.button"), class: "sr-only"),
       data: ->(order) { capture_button(order) if capturable?(order) }
     }

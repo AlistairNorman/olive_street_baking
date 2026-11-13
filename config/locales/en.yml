@@ -53,6 +53,8 @@ en:
       tab:
         cookies: "Cookies"
   tiny_goat_baking:
+    admin_navigation:
+      menu: "Menu"
     new_bread_variants:
       button: "Add 10 more weeks"
       created:

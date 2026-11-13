@@ -9,7 +9,7 @@ class TinyGoatBaking::SolidusAdmin::Orders::Index::Component < SolidusLegacyProm
     {
       header: -> { pickup_date_sort_link },
       data: ->(order) do
-        safe_join(order.pickup_dates.map { |pickup_date| tag.div(pickup_date.strftime("%a, %b %-d, %Y")) })
+        safe_join(order.pickup_dates.map { |pickup_date| tag.div(TinyGoatBaking::PickupDate.display(pickup_date)) })
       end
     }
   end

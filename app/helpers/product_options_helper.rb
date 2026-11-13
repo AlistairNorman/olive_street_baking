@@ -23,8 +23,8 @@ module ProductOptionsHelper
   end
 
   def pickup_date_label(variant)
-    presentation = variant.pickup_date_option_value.presentation
-    variant.in_stock? ? presentation : "#{presentation} (sold out)"
+    label = TinyGoatBaking::PickupDate.display(variant.pickup_date)
+    variant.in_stock? ? label : "#{label} (sold out)"
   end
 
   def pickup_date_options(product)

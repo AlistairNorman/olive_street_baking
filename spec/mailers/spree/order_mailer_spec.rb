@@ -7,7 +7,7 @@ RSpec.describe Spree::OrderMailer, type: :mailer do
     subject { described_class.confirm_email(order).body.encoded }
 
     let(:order) { create :order_ready_to_ship, line_items_attributes: line_items_attributes }
-    let(:pickup_date_type) { create :option_type, name: "Pickup Date" }
+    let(:pickup_date_type) { create :option_type, name: "Pickup Date", presentation: "Pickup Date" }
 
     def bread_variant(pickup_date:)
       option_value = create :option_value,
@@ -20,6 +20,7 @@ RSpec.describe Spree::OrderMailer, type: :mailer do
       let(:line_items_attributes) { [{ variant: bread_variant(pickup_date: Date.new(2026, 11, 7)), quantity: 2 }] }
 
       it { is_expected.to include "ready for pickup on Saturday, November 7, 2026 by 9am" }
+      it { is_expected.to include "Pickup Date: Sat, Nov 7, 2026" }
     end
 
     context "when the loaves are for different pickup dates" do

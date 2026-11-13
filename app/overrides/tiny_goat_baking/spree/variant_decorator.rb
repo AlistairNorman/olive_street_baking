@@ -11,6 +11,12 @@ module TinyGoatBaking
         pickup_date_option_value&.pickup_date
       end
 
+      def options_text
+        return super unless pickup_date
+
+        "#{pickup_date_option_value.option_type.presentation}: #{::TinyGoatBaking::PickupDate.display(pickup_date)}"
+      end
+
       def upcoming_bake?
         return false if pickup_date.nil? || pickup_date.past?
 

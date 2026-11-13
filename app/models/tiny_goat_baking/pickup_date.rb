@@ -3,6 +3,11 @@
 module TinyGoatBaking
   module PickupDate
     FORMATS = ["%a, %b %d, %Y", "%b %d, %Y"].freeze
+    DISPLAY_FORMAT = "%a, %b %-d, %Y"
+
+    def self.display(pickup_date)
+      pickup_date.strftime(DISPLAY_FORMAT)
+    end
 
     def self.parse(name)
       FORMATS.each do |format|

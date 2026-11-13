@@ -13,7 +13,7 @@ module Spree
           flash[:error] = t('tiny_goat_baking.new_bread_variants.no_existing_pickup_date')
         end
 
-        redirect_to admin_product_stock_path(product)
+        redirect_to solidus_admin.stock_items_path
       end
     end
   end

@@ -26,24 +26,6 @@ RSpec.describe SolidusAdmin::Config do
       it { is_expected.to be true }
     end
 
-    context "on the stock items list" do
-      let(:path) { "/admin/stock_items" }
-
-      it { is_expected.to be false }
-    end
-
-    context "on a product's stock page" do
-      let(:path) { "/admin/products/sourdough/stock" }
-
-      it { is_expected.to be true }
-    end
-
-    context "when adding new bread variants" do
-      let(:path) { "/admin/products/sourdough/new_bread_variants" }
-
-      it { is_expected.to be true }
-    end
-
     context "on the products list" do
       let(:path) { "/admin/products" }
 
@@ -51,7 +33,7 @@ RSpec.describe SolidusAdmin::Config do
     end
 
     context "on a page whose path only starts like a legacy one" do
-      let(:path) { "/admin/products/sourdough/stock_history" }
+      let(:path) { "/admin/orders_archive/R123456789" }
 
       it { is_expected.to be false }
     end

@@ -3,7 +3,7 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Adding new bread variants from the admin stock page', type: :system do
-  stub_authorization!
+  before { sign_in create(:admin_user) }
 
   let!(:product) { create(:product, name: 'Sourdough') }
   let!(:pickup_date_type) { create(:option_type, name: 'Pickup Date', presentation: 'Pickup Date') }
@@ -20,9 +20,10 @@ RSpec.describe 'Adding new bread variants from the admin stock page', type: :sys
     end
 
     it 'creates ten weekly variants following the latest pickup date' do
-      visit spree.admin_product_stock_path(product)
+      visit solidus_admin.stock_items_path
       click_button 'Add 10 more weeks'
 
+      expect(page).to have_current_path solidus_admin.stock_items_path
       expect(page).to have_content 'Added 10 more weeks of breads.'
 
       expected = (1..10).map { |week| Date.new(2026, 1, 17) + (week * 7) }
@@ -30,7 +31,7 @@ RSpec.describe 'Adding new bread variants from the admin stock page', type: :sys
     end
 
     it 'attaches each new pickup date to the product as a variant' do
-      visit spree.admin_product_stock_path(product)
+      visit solidus_admin.stock_items_path
 
       expect { click_button 'Add 10 more weeks' }
         .to change { product.variants.reload.count }.by(10)
@@ -42,7 +43,7 @@ RSpec.describe 'Adding new bread variants from the admin stock page', type: :sys
 
   context 'when no pickup dates exist yet' do
     it 'reports that there is nothing to add breads after' do
-      visit spree.admin_product_stock_path(product)
+      visit solidus_admin.stock_items_path
       click_button 'Add 10 more weeks'
 
       expect(page).to have_content 'There are no pickup dates to add new breads after.'

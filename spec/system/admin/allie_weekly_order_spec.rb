@@ -5,6 +5,7 @@ require 'solidus_starter_frontend_spec_helper'
 RSpec.describe "Making Allie's weekly order when bread is stocked", type: :system do
   before { sign_in create(:admin_user) }
 
+  let(:product) { create :product, name: "Sourdough" }
   let(:pickup_date_type) { create :option_type, name: "Pickup Date", presentation: "Pickup Date" }
   let!(:allie) { create :user, email: "allie@example.com" }
   let!(:variant) { bread_variant(pickup_date: Date.new(2026, 11, 14)) }
@@ -17,7 +18,7 @@ RSpec.describe "Making Allie's weekly order when bread is stocked", type: :syste
   def bread_variant(pickup_date:)
     name = pickup_date.strftime("%B %d, %Y")
     option_value = create :option_value, option_type: pickup_date_type, name: name, presentation: name
-    create :variant, option_values: [option_value]
+    create :variant, product: product, option_values: [option_value]
   end
 
   def stock_loaves(count)

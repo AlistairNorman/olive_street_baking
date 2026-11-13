@@ -11,10 +11,10 @@ SolidusAdmin::Config.configure do |config|
   Rails.application.config.after_initialize do
     config.components["orders/index"] = "TinyGoatBaking::SolidusAdmin::Orders::Index::Component"
   end
+  config.components["stock_items/index"] = "TinyGoatBaking::SolidusAdmin::StockItems::Index::Component"
 
   legacy_admin_paths = [
-    %r{\A/admin/orders/.+},
-    %r{\A/admin/products/[^/]+/(stock|new_bread_variants)(/|\z)}
+    %r{\A/admin/orders/.+}
   ]
   config.force_legacy_admin_proc = ->(request) {
     legacy_admin_paths.any? { |path| path.match?(request.path) }

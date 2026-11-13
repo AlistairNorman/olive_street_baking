@@ -36,10 +36,7 @@ module TinyGoatBaking
     end
 
     def last_pickup_date
-      latest = pickup_date_option_type.option_values.max_by { |option_value| option_value.name.to_date }
-      raise NoExistingPickupDate if latest.nil?
-
-      latest.name.to_date
+      pickup_date_option_type.option_values.maximum(:pickup_date) or raise NoExistingPickupDate
     end
 
     def create_variant(pickup_date)

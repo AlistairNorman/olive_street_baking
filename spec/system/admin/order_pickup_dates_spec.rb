@@ -7,10 +7,10 @@ RSpec.describe 'Pickup dates on the admin orders page', type: :system do
 
   let(:pickup_date_type) { create :option_type, name: "Pickup Date" }
 
-  def bread_variant(pickup_date:)
+  def bread_variant(pickup_date:, format: "%B %d, %Y")
     option_value = create :option_value,
       option_type: pickup_date_type,
-      name: pickup_date.strftime("%B %d, %Y")
+      name: pickup_date.strftime(format)
     create :variant, option_values: [option_value]
   end
 
@@ -34,7 +34,7 @@ RSpec.describe 'Pickup dates on the admin orders page', type: :system do
   context 'with orders for several pickup dates' do
     let!(:december_order) {
       create :completed_order_with_totals,
-        line_items_attributes: [{ variant: bread_variant(pickup_date: Date.new(2026, 12, 5)), quantity: 1 }]
+        line_items_attributes: [{ variant: bread_variant(pickup_date: Date.new(2026, 12, 5), format: "%a, %b %-d, %Y"), quantity: 1 }]
     }
     let!(:january_order) {
       create :completed_order_with_totals,

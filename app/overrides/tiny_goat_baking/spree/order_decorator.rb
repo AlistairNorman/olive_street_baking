@@ -14,13 +14,11 @@ module TinyGoatBaking
         base.ransacker :pickup_date do
           Arel.sql(<<~SQL.squish)
             (
-              SELECT MIN(to_date(spree_option_values.name, 'FMMonth DD, YYYY'))
+              SELECT MIN(spree_option_values.pickup_date)
               FROM spree_line_items
               JOIN spree_option_values_variants ON spree_option_values_variants.variant_id = spree_line_items.variant_id
               JOIN spree_option_values ON spree_option_values.id = spree_option_values_variants.option_value_id
-              JOIN spree_option_types ON spree_option_types.id = spree_option_values.option_type_id
               WHERE spree_line_items.order_id = spree_orders.id
-                AND spree_option_types.name = '#{::TinyGoatBaking::CreateNewBreadVariants::PICKUP_DATE_OPTION_TYPE_NAME}'
             )
           SQL
         end

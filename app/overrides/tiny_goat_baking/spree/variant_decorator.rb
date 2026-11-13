@@ -8,7 +8,7 @@ module TinyGoatBaking
       end
 
       def pickup_date
-        pickup_date_option_value&.name&.to_date
+        pickup_date_option_value&.pickup_date
       end
 
       def upcoming_bake?

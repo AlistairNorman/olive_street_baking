@@ -30,6 +30,12 @@
 en:
   hello: "Hello world"
   activerecord:
+    errors:
+      models:
+        spree/option_value:
+          attributes:
+            pickup_date:
+              unreadable_pickup_date: "isn't a date this store can read. Name it like \"Wed, Nov 11, 2026\"."
     models:
       cookie:
         one: "Cookie"
